@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+    <style type="text/css">
+    textarea{
+        width: 800px;
+        height: 200px;
+        display: block; 
+        margin: 20px 0;
+    }
+    </style>
+</head>
+<body>
+    <h2>欢迎留言</h2>
+    <textarea id="newtext"></textarea>
+    <input type="button" value="留言" onclick="addInfo()">
+    <input type="button" value="清除留言" onclick="clearInfo()">
+    <textarea id="textlist"></textarea>
+</body>
+<script type="text/javascript">
+                              //localStorage的样例;         sessionStorage时，类似，只需修改localStorage的名称部分;
+    function addInfo(){
+        var info=document.getElementById("newtext");
+        var Lstorage=window.localStorage;
+        if(Lstorage.getItem("myBoard")){
+            var date=new Date();
+            Lstorage.myBoard+=info.value+"\n留言时间"+date.toLocaleString()+"\n";
+        }
+        else{
+            var date=new Date();
+            Lstorage.myBoard=info.value+"\n留言时间"+date.toLocaleString()+"\n";
+        }
+        upInfo();
+    }
+    function clearInfo(){
+        window.localStorage.removeItem("myBoard");
+        upInfo();
+    }
+    function upInfo(){
+        var Lstorage=window.localStorage;
+        var list=document.getElementById("textlist");
+        if(window.localStorage.myBoard){
+            list.value=window.localStorage.getItem("myBoard");
+        }
+        else{
+            list.value="这里还没有留言";
+        }
+    }
+</script>
+</html>
