@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+    <style type="text/css">
+    @keyframes fade-in {  
+        0% {opacity: 0;transform:translate3d(0,300px,0)}/*初始状态 透明度为0*/  
+        50% {opacity: 0;}/*过渡状态 透明度为0*/  
+        100% {opacity: 1;transform:translate(0,0,0)}/*结束状态 透明度为1*/  
+    }  
+    @-webkit-keyframes fade-in {/*针对webkit内核*/  
+        0% {opacity: 0;transform:translate3d(0,300px,0)}  
+        50% {opacity: 0;}  
+        100% {opacity: 1;transform:translate(0,0,0)}  
+    }  
+    #wrapper {    
+        height: 400px;
+        width: 200px;
+        border: 1px solid #ccc;
+        box-sizing:border-box;
+        background-color: #FF4466;
+        margin: 1000px 0 0 500px;        
+    }  
+    .animate{
+        animation: fade-in;/*动画名称*/  
+        animation-duration: 3s;/*动画持续时间*/  
+        -webkit-animation:fade-in 3s;/*针对webkit内核*/  
+    }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        
+    </div>
+    <div style="margin-top:1500px">
+        
+    </div>
+
+</body>
+<script type="text/javascript">
+window.onload=function(){
+   window.onscroll=function(){
+    scollcheck();
+   } 
+}
+function scollcheck(){
+    var wrapper=document.getElementById("wrapper");
+    var wTop=wrapper.offsetTop;
+    var cHeight=document.documentElement.clientHeight||document.body.clientHeight;
+    var scollTop=document.documentElement.scrollTop||document.body.scrollTop;
+    console.log(wTop);
+    console.log(cHeight);
+    console.log(scollTop);
+    if(wTop<scollTop+cHeight){
+        wrapper.className="animate";
+    }
+    else{
+        wrapper.className="";
+    }
+}
+
+</script>
+</html>
