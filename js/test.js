@@ -129,3 +129,18 @@ document.onselectstart=function(evt){
     evt.preventDefault();
 }
 */
+
+/*
+  function add(x){
+    var sum=x;
+    var temp=function(y){
+        sum=sum+y;                            //类似add(1)(2)(3)的实现方式
+        return temp;
+    }
+    temp.toString=function(){
+        return sum;
+    }
+    return temp;
+  }
+  alert(add(3)(1));
+*/
