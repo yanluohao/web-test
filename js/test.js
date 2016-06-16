@@ -82,20 +82,21 @@ var arr=[1,1,2,3,2,4,5,4];
     */  //数组去重
 
 /*
-var arr=[1,1,2,3,2,5,3,4];
+var arr=[1,1,2,3,2,5,3,4,15,16];
 var b=[];
 for(var i=0;i<arr.length;i++){
-	if(b.toString().indexOf(arr[i])==-1)            数组去重2
+	if(b.toString().indexOf(arr[i])==-1)            //数组去重2
 		b.push(arr[i]);
 }
 console.log(b);
 */
+
 /*
 function a(){
 	this.name="lee";
 	this.age=11;
 }
-function b(age,name,ggrade){
+function b(age,name){
 	this.grade="二年级";
 	a.call(this,age,name);      //类式继承
 }
@@ -112,7 +113,7 @@ function b1(){
 
 b1.prototype=new a1();
 var c1=new b1();
-console.log(c1.age);
+console.log(c1.name);
 */
 
 /*
@@ -143,4 +144,68 @@ document.onselectstart=function(evt){
     return temp;
   }
   alert(add(3)(1));
+*/
+
+/*
+function createCompare(pro){
+	return function(obj1,obj2){
+		var val1=obj1[pro];
+		var val2=obj2[pro];
+		if(val1<val2){
+			return 1;
+		}
+		else if(val1>val2){
+			return -1;                          //返回一个函数
+		}
+		else{
+			return 0;
+		}
+	}
+}
+
+var compare=createCompare("name");
+console.log(compare({name:"wsz"},{name:"hh"}));
+*/
+
+/*
+myname="global";
+function func(){
+	console.log(myname);
+	var myname="y";                           //var
+	console.log(myname);
+}
+func();
+
+//上述代码等同于
+myname="global";
+function func(){
+	var myname;
+	console.log(myname);    //所以是undefined
+	myname="y";                           //var
+	console.log(myname);
+}
+func();
+*/
+
+/*
+//this相关
+var foo = {x: 10};
+ 
+var bar = {
+  x: 20,
+  test: function () {
+ 
+    console.log(this === bar); // true
+    console.log(this.x); // 20
+ 
+    //this = foo; // 错误，任何时候不能改变this的值
+ 
+    console.log(this.x); // 如果不出错的话，应该是10，而不是20
+ 
+  }
+ 
+};
+bar.test();
+foo.test=bar.test;
+foo.test();
 */
