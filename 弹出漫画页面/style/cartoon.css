@@ -1,0 +1,222 @@
+/* Çå³ýÄÚÍâ±ß¾à */
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+blockquote,
+
+/* structural elements ½á¹¹ÔªËØ */
+
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+
+/* list elements ÁÐ±íÔªËØ */
+
+pre,
+
+/* text formatting elements ÎÄ±¾¸ñÊ½ÔªËØ */
+
+fieldset,
+lengend,
+button,
+input,
+textarea,
+
+/* form elements ±íµ¥ÔªËØ */
+
+th,
+td,
+img {
+    /* table elements ±í¸ñÔªËØ */
+    margin: 0;
+    padding: 0;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+    /* for ie */
+    /*font: 12px/1 Tahoma, Helvetica, Arial, "ËÎÌå", sans-serif;*/
+    font-family: "Î¢ÈíÑÅºÚ";
+    font-size: 12px;
+}
+
+ul,
+li {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+a:hover,
+a:visited,
+a:link {
+    text-decoration: none;
+}
+
+img {
+    border: 0;
+}
+
+input {
+    outline: 0;
+    border: 0;
+}
+
+.clearfix:after {
+    content: "";
+    display: block;
+    clear: both;
+    visibility: hidden;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+.popcover {
+    z-index: 9998;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+}
+
+.newbiepic {
+    z-index: 9999;
+    position: fixed;
+    top: 9%;
+    left: 31%;
+}
+
+.cancelbtn1 {
+    z-index: 9999;
+    position: fixed;
+    top: 18%;
+    left: 68%;
+    cursor: pointer;
+}
+
+.enterbtn {
+    z-index: 9999;
+    position: fixed;
+    bottom: 3.1%;
+    left: 43%;
+    cursor: pointer;
+}
+
+.cartoonsmpic {
+    position: fixed;
+    bottom: 20px;
+    left: 15px;
+    display: none;
+    cursor: pointer;
+}
+
+.cartoonlisticon {
+    z-index: 9999;
+    position: fixed;
+    top: 8%;
+    left: 24%;
+    cursor: pointer;
+}
+
+.cancelbtncartoon{
+    z-index: 9999;
+    position: fixed;
+    cursor: pointer;
+    left: 69%;
+    top:8%;
+}
+
+.cartoonbox{
+    width: 419px;
+    position: fixed;
+    z-index: 9999;
+    bottom:10px;
+    left: 36%;
+}
+
+.cartoonbox img{
+    width: 100%;
+}
+
+.cartoonbtnbox{
+    width: 60px;
+    height: 210px;
+    position: fixed;
+    z-index: 9999;
+    bottom: 50px;
+    left:65%;
+}
+.cartoonbtnbox img{
+    cursor: pointer;
+}
+.cartoonPages{
+    width: 60px;
+    height: 80px;
+    font-size: 36px;
+    color: #f6f400;
+    line-height: 80px;
+    text-align: center;
+    font-family: "微软雅黑";
+}
+
+.cancelbtn3 {
+    z-index: 9999;
+    position: fixed;
+    top: 9%;
+    left: 68%;
+    cursor: pointer;
+}
+
+.cartoonItembox{
+    z-index: 9999;
+    position: fixed;
+    width: 508px;
+    height: 752px;
+    left: 34%;
+    bottom: 10px;
+    background: url(../images/cartoonItem.png) no-repeat;
+}
+
+.cartoonItembox>img:first-of-type{
+    margin:140px 0 14px 370px;
+}
+
+.cartoonItembox>img{
+    margin:15px 0 14px 370px;
+    float: left;
+    cursor: pointer;
+}
+
+.itemBtn img{
+    cursor: pointer;
+}
+
+.listPrev{
+    margin-left: 65px;
+}
+
+.listNext{
+    margin-left: 220px;
+}
