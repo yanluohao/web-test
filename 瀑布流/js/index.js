@@ -70,6 +70,9 @@ function checkscroll(){
 	var scrollTop=document.body.scrollTop||document.documentElement.scrollTop;
 	var height=document.body.clientHeight||document.documentElement.clientHeight;
 	var lastHeight=oBoxs[i].offsetTop+oBoxs[i].offsetHeight/2;
+	console.log(lastHeight);
+	console.log(scrollTop);
+	console.log(height);
 	if(lastHeight<scrollTop+height){
 		return true;
 	}else{

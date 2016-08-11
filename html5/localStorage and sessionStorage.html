@@ -26,7 +26,7 @@
     function addInfo(){
         var info=document.getElementById("newtext");
         var Lstorage=window.localStorage;
-        if(Lstorage.getItem("myBoard")){
+        if(localStorage.getItem("myBoard")){
             var date=new Date();
             Lstorage.myBoard+=info.value+"\n留言时间"+date.toLocaleString()+"\n";
         }
