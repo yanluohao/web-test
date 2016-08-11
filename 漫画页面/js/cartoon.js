@@ -37,12 +37,17 @@ window.onload = function() {
             enterbtn.setAttribute("onclick", "firstday.showCartoon(this)");
             popup.appendChild(enterbtn);
             localStorage.popup_counts = localStorage.popup_counts.replace("0", "1");
-            console.log(localStorage.popup_counts);
+            if (wHeight <= 800&&wHeight>=700) {
+                $(".newbiepic").css("width", "550px");
+            }
+            else if(wHeight<700){
+                $(".newbiepic").css("width", "480px");
+            }
         } else {
             $(".popcover").hide();
             $(".cartoonsmpic").fadeIn();
         }
-    } else if (day > 1 && day <= 7) {
+    } else if (day > 1 && day <= 90) {
         //if条件内day<=的数值需要做修改根据漫画的天数修改
         if (localStorage.popup_counts.indexOf("0") != -1) {
             common.showCartoon();
@@ -54,9 +59,11 @@ window.onload = function() {
     } else {
         $(".popcover").hide();
     }
+    //清理本地缓存
+    localStorage.removeItem("popup_counts");
 }
-
-
+//判断浏览器的分辨率,兼容1366分辨率的老土做法;
+var wHeight = $(window).height();
 //用户注册日期与系统日期之间的差
 // 对Date的扩展，将 Date 转化为指定格式的String
 // 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符， 
@@ -80,7 +87,7 @@ Date.prototype.Format = function(fmt) { //author: meizz
         return fmt;
     }
     //计算天数差
-var register_day = "2016-08-11";
+var register_day = "2016-08-01";
 var time_today = new Date().Format("yyyy-MM-dd");
 var year_1 = register_day.substr(0, 4);
 var year_2 = time_today.substr(0, 4);
@@ -97,10 +104,8 @@ var dateaa = new Date(temp_1);
 var datebb = new Date(temp_2);
 var datedifference = datebb.getTime() - dateaa.getTime();
 var day = Math.floor(datedifference / (1000 * 60 * 60 * 24)) + 1;
-
-//localStorage.removeItem("popup_counts");
-
-console.log(day);
+var chapter_look=Math.ceil(day/3);
+var minDay=day;
 
 var list_page = 0;
 //弹窗消失，小图显示
@@ -116,21 +121,20 @@ var common = {
             var picId = $(".cartoonbox>img").attr("name");
             var nowdayArr = [];
             for (var i = 0; i < dataint.length; i++) {
-                if (dataint[i].day == day) {
+                if (dataint[i].day == chapter_look) {
                     nowdayArr.push(dataint[i]);
                 }
             }
             nowdayLength = nowdayArr.length;
             $(".cartoonPages span").eq(2).html(nowdayLength);
             if (picId <= 1) {
-                if (day == 1) {
+                if (chapter_look == 1) {
 
                 } else {
-                    day--;
-                    console.log(day);
+                    chapter_look--;
                     var dayArr = [];
                     for (var i = 0; i < dataint.length; i++) {
-                        if (dataint[i].day == day) {
+                        if (dataint[i].day == chapter_look) {
                             dayArr.push(dataint[i]);
                         }
                     }
@@ -138,7 +142,7 @@ var common = {
                     $(".cartoonPages span").eq(2).html(dayLength);
                     picId = dayLength;
                     for (var j = 0; j < dataint.length; j++) {
-                        if (dataint[j].day == day && dataint[j].id == picId) {
+                        if (dataint[j].day == chapter_look && dataint[j].id == picId) {
                             $(".cartoonbox>img").attr("src", dataint[j].src);
                             $(".cartoonbox>img").attr("name", dataint[j].id);
                             $(".cartoonPages span").eq(0).html(dataint[j].id);
@@ -148,7 +152,7 @@ var common = {
             } else {
                 picId--;
                 for (var i = 0; i < dataint.length; i++) {
-                    if (dataint[i].day == day && dataint[i].id == picId) {
+                    if (dataint[i].day == chapter_look && dataint[i].id == picId) {
                         $(".cartoonbox>img").attr("src", dataint[i].src);
                         $(".cartoonbox>img").attr("name", dataint[i].id);
                         $(".cartoonPages span").eq(0).html(dataint[i].id);
@@ -160,22 +164,21 @@ var common = {
             var picId = $(".cartoonbox>img").attr("name");
             var nowdayArr = [];
             for (var i = 0; i < dataint.length; i++) {
-                if (dataint[i].day == day) {
+                if (dataint[i].day == chapter_look) {
                     nowdayArr.push(dataint[i]);
                 }
             }
             nowdayLength = nowdayArr.length;
             $(".cartoonPages span").eq(2).html(nowdayLength);
             if (picId >= nowdayLength) {
-            	//if条件内day<=的数值需要做修改根据漫画的天数修改
-                if (day >= 7) {
+                //if条件内day<=的数值需要做修改根据漫画的天数修改
+                if (chapter_look >= Math.ceil(day/3)) {
 
                 } else {
-                    day++;
-                    console.log(day);
+                    chapter_look++;
                     var dayArr = [];
                     for (var k = 0; k < dataint.length; k++) {
-                        if (dataint[k].day == day) {
+                        if (dataint[k].day == chapter_look) {
                             dayArr.push(dataint[k]);
                         }
                     }
@@ -183,7 +186,7 @@ var common = {
                     $(".cartoonPages span").eq(2).html(dayLength);
                     picId = 1;
                     for (var j = 0; j < dataint.length; j++) {
-                        if (dataint[j].day == day && dataint[j].id == picId) {
+                        if (dataint[j].day == chapter_look && dataint[j].id == picId) {
                             $(".cartoonbox>img").attr("src", dataint[j].src);
                             $(".cartoonbox>img").attr("name", dataint[j].id);
                             $(".cartoonPages span").eq(0).html(dataint[j].id);
@@ -193,7 +196,7 @@ var common = {
             } else {
                 picId++;
                 for (var i = 0; i < dataint.length; i++) {
-                    if (dataint[i].day == day && dataint[i].id == picId) {
+                    if (dataint[i].day == chapter_look && dataint[i].id == picId) {
                         $(".cartoonbox>img").attr("src", dataint[i].src);
                         $(".cartoonbox>img").attr("name", dataint[i].id);
                         $(".cartoonPages span").eq(0).html(dataint[i].id);
@@ -215,32 +218,38 @@ var common = {
             var cartoonItem = document.createElement("div");
             cartoonItem.className = "cartoonItembox";
             popup.appendChild(cartoonItem);
+            /*
+            var showBg=document.createElement("img");
+            showBg.className="cartoonItembox_bg";
+            showBg.src="images/cartoonItem.png";
+            cartoonItem.appendChild(showBg);
+            */
             var showImg1 = document.createElement("img");
-            showImg1.setAttribute("onclick", "common.openthisCartoon(this)");
+            //showImg1.setAttribute("onclick", "common.openthisCartoon(this)");
             showImg1.src = "images/showthisPic.png";
             cartoonItem.appendChild(showImg1);
             var showImg2 = document.createElement("img");
-            showImg2.setAttribute("onclick", "common.openthisCartoon(this)");
+            //showImg2.setAttribute("onclick", "common.openthisCartoon(this)");
             showImg2.src = "images/showthisPic.png";
             cartoonItem.appendChild(showImg2);
             var showImg3 = document.createElement("img");
-            showImg3.setAttribute("onclick", "common.openthisCartoon(this)");
+            //showImg3.setAttribute("onclick", "common.openthisCartoon(this)");
             showImg3.src = "images/showthisPic.png";
             cartoonItem.appendChild(showImg3);
             var showImg4 = document.createElement("img");
-            showImg4.setAttribute("onclick", "common.openthisCartoon(this)");
+            //showImg4.setAttribute("onclick", "common.openthisCartoon(this)");
             showImg4.src = "images/showthisPic.png";
             cartoonItem.appendChild(showImg4);
             var showImg5 = document.createElement("img");
-            showImg5.setAttribute("onclick", "common.openthisCartoon(this)");
+            //showImg5.setAttribute("onclick", "common.openthisCartoon(this)");
             showImg5.src = "images/showthisPic.png";
             cartoonItem.appendChild(showImg5);
             var showImg6 = document.createElement("img");
-            showImg6.setAttribute("onclick", "common.openthisCartoon(this)");
+            //showImg6.setAttribute("onclick", "common.openthisCartoon(this)");
             showImg6.src = "images/showthisPic.png";
             cartoonItem.appendChild(showImg6);
             var showImg7 = document.createElement("img");
-            showImg7.setAttribute("onclick", "common.openthisCartoon(this)");
+            //showImg7.setAttribute("onclick", "common.openthisCartoon(this)");
             showImg7.src = "images/showthisPic.png";
             cartoonItem.appendChild(showImg7);
             var itemBtn = document.createElement("div");
@@ -254,16 +263,41 @@ var common = {
             listNext.className = "listNext";
             listNext.src = "images/listNext.png";
             itemBtn.appendChild(listNext);
+            for(var q=0;q<Math.ceil(day/3);q++){
+                $(".cartoonItembox>img").eq(q).attr("onclick","common.openthisCartoon(this)");
+            };
+            if (wHeight <= 800&&wHeight>=700) {
+                $(".cartoonbox").css("width", "340px");
+                $(".cartoonItembox").css("width", "400px");
+                $(".cartoonItembox").css("height", "592px");
+                $(".cartoonItembox").css("background-size", "cover");
+                $(".cartoonItembox>img").css("margin", "0 0 12px 270px");
+                $(".cartoonItembox>img").eq(0).css("margin", "105px 0 14px 270px");
+                $(".cartoonItembox>img").eq(6).css("margin-bottom", "6px");
+                $(".listPrev").css({"height":"50px","width":"50px"});
+                $(".listNext").css({"height":"50px","width":"50px","margin-left":"160px"});
+            }
+            else if(wHeight<700){
+                $(".cartoonbox").css("width", "340px");
+                $(".cartoonItembox").css("width", "400px");
+                $(".cartoonItembox").css("height", "592px");
+                $(".cartoonItembox").css("background-size", "cover");
+                $(".cartoonItembox>img").css("margin", "0 0 12px 270px");
+                $(".cartoonItembox>img").eq(0).css("margin", "105px 0 14px 270px");
+                $(".cartoonItembox>img").eq(6).css("margin-bottom", "6px");
+                $(".listPrev").css({"height":"50px","width":"50px"});
+                $(".listNext").css({"height":"50px","width":"50px","margin-left":"160px"});
+            }
         },
         openthisCartoon: function(obj) {
             $("#popup1").remove();
             $(".popcover").after('<div id="popup1"></div>');
             var popup = document.getElementById("popup1");
             this_index = $(obj).index() + 1;
-            day = this_index + list_page * 7;
+            chapter_look = this_index + list_page * 7;
             var nowdayArr = [];
             for (var i = 0; i < dataint.length; i++) {
-                if (dataint[i].day == day) {
+                if (dataint[i].day == chapter_look) {
                     nowdayArr.push(dataint[i]);
                 }
             }
@@ -278,7 +312,7 @@ var common = {
             cartoonBox.className = "cartoonbox";
             popup.appendChild(cartoonBox);
             for (var i = 0; i < dataint.length; i++) {
-                if (dataint[i].day == day && dataint[i].id == 1) {
+                if (dataint[i].day == chapter_look && dataint[i].id == 1) {
                     cartoonPic = document.createElement("img");
                     cartoonPic.src = dataint[i].src;
                     cartoonPic.name = dataint[i].id;
@@ -315,6 +349,12 @@ var common = {
             imgNext.src = "images/cartoonNext.png";
             imgNext.setAttribute("onclick", "common.cartoonNext()");
             cartoonbtnBox.appendChild(imgNext);
+            if (wHeight <= 800&&wHeight>=700) {
+                $(".cartoonbox").css("width", "380px");
+            }
+            else if(wHeight<700){
+                $(".cartoonbox").css("width", "340px");
+            }
         },
         opentodayCartoon: function(obj) {
             $(obj).fadeOut();
@@ -333,7 +373,7 @@ var common = {
             nowdayLength = nowdayArr.length;
             */
             var todayArr = [];
-            var today = day;
+            var today = chapter_look;
             for (var i = 0; i < dataint.length; i++) {
                 if (dataint[i].day == today) {
                     todayArr.push(dataint[i]);
@@ -350,7 +390,7 @@ var common = {
             cartoonBox.className = "cartoonbox";
             popup.appendChild(cartoonBox);
             for (var i = 0; i < dataint.length; i++) {
-                if (dataint[i].day == day && dataint[i].id == 1) {
+                if (dataint[i].day == chapter_look && dataint[i].id == 1) {
                     cartoonPic = document.createElement("img");
                     cartoonPic.src = dataint[i].src;
                     cartoonPic.name = dataint[i].id;
@@ -387,12 +427,18 @@ var common = {
             imgNext.src = "images/cartoonNext.png";
             imgNext.setAttribute("onclick", "common.cartoonNext()");
             cartoonbtnBox.appendChild(imgNext);
+            if (wHeight <= 800&&wHeight>=700) {
+                $(".cartoonbox").css("width", "380px");
+            }
+            else if(wHeight<700){
+                $(".cartoonbox").css("width", "340px");
+            }
         },
         showCartoon: function() {
             $(".popcover").after('<div id="popup1"></div>');
             var nowdayArr = [];
             for (var i = 0; i < dataint.length; i++) {
-                if (dataint[i].day == day) {
+                if (dataint[i].day == chapter_look) {
                     nowdayArr.push(dataint[i]);
                 }
             }
@@ -409,7 +455,7 @@ var common = {
             cartoonBox.className = "cartoonbox";
             popup.appendChild(cartoonBox);
             for (var i = 0; i < dataint.length; i++) {
-                if (dataint[i].day == day && dataint[i].id == 1) {
+                if (dataint[i].day == chapter_look && dataint[i].id == 1) {
                     cartoonPic = document.createElement("img");
                     cartoonPic.src = dataint[i].src;
                     cartoonPic.name = dataint[i].id;
@@ -446,6 +492,12 @@ var common = {
             imgNext.src = "images/cartoonNext.png";
             imgNext.setAttribute("onclick", "common.cartoonNext()");
             cartoonbtnBox.appendChild(imgNext);
+            if (wHeight <= 800&&wHeight>=700) {
+                $(".cartoonbox").css("width", "380px");
+            }
+            else if(wHeight<700){
+                $(".cartoonbox").css("width", "340px");
+            }
         }
     }
     //员工第一天时点击进入观看
@@ -501,6 +553,12 @@ var firstday = {
             imgNext.src = "images/cartoonNext.png";
             imgNext.setAttribute("onclick", "common.cartoonNext()");
             cartoonbtnBox.appendChild(imgNext);
+            if (wHeight <= 800&&wHeight>700) {
+                $(".cartoonbox").css("width", "380px");
+            }
+            else if(wHeight<700){
+                $(".cartoonbox").css("width", "340px");
+            }
         }
     }
     //数据导入

@@ -120,7 +120,8 @@ input {
     z-index: 9999;
     position: fixed;
     bottom: 3.1%;
-    left: 43%;
+    left: 50%;
+    transform: translate(-50%,0);
     cursor: pointer;
 }
 
@@ -152,8 +153,9 @@ input {
     width: 419px;
     position: fixed;
     z-index: 9999;
-    bottom:10px;
-    left: 36%;
+    bottom:1%   ;
+    left: 50%;
+    transform:translate(-50%,0);
 }
 
 .cartoonbox img{
@@ -165,8 +167,8 @@ input {
     height: 210px;
     position: fixed;
     z-index: 9999;
-    bottom: 50px;
-    left:65%;
+    bottom: 6%;
+    left:68%;
 }
 .cartoonbtnbox img{
     cursor: pointer;
@@ -194,12 +196,23 @@ input {
     position: fixed;
     width: 508px;
     height: 752px;
-    left: 34%;
-    bottom: 10px;
-    background: url(../images/cartoonItem.png) no-repeat;
+    left: 50%;
+    bottom: 1%;
+    background: url(../images/cartoonItem.png) no-repeat 100%;
+    transform: translate(-50%,0);
 }
-
-.cartoonItembox>img:first-of-type{
+.cartoonItembox_bg{
+    z-index: 1;
+}
+/*
+.cartoonItembox>img:nth-of-type(1){
+    margin:0;
+    width:100%;
+    position: absolute;
+    z-index: 999;
+}
+*/
+.cartoonItembox>img:nth-of-type(1){
     margin:140px 0 14px 370px;
 }
 
@@ -207,6 +220,7 @@ input {
     margin:15px 0 14px 370px;
     float: left;
     cursor: pointer;
+    z-index: 1000;
 }
 
 .itemBtn img{
