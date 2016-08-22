@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Video Player Tutorial - by Valeriu Timbuc for DesignModo</title>
+    <script src="../jquery.js"></script>
+    <script src="js/mediaelement-and-player.min.js"></script>
+    <link rel="stylesheet" href="css/style.css" media="screen">
+    <style type="text/css">
+    .mejs-container {
+        margin: 0 auto;
+    }
+    </style>
+</head>
+
+<body>
+    <video width="640" height="480" poster="">
+        <source src="../4.2-埃摩森青岛思想课回顾.mp4" type="video/mp4" />
+        <source src="../1018842.ogg" type="video/ogg" />
+        <source src="../1018842.webm" type="video/webm" />
+        您的浏览器不支持此种视频格式。         
+    </video>
+    <script>
+    $(document).ready(function() {
+        $('video').mediaelementplayer({
+            alwaysShowControls: false,
+            videoVolume: 'horizontal',
+            features: ['playpause', 'progress', 'volume', 'fullscreen']
+        });
+    });
+    </script>
+</body>
+
+</html>
