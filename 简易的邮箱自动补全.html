@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+    <script type="text/javascript" src="commonJS/jquery.js"></script>
+</head>
+
+<body>
+    <input type="email" placeholder="请输入你的邮箱" list="emailList" id="userEmail">
+    <datalist id="emailList"></datalist>
+    <script type="text/javascript" src="../jquery.js"></script>
+    <script type="text/javascript">
+    function emailComplete(input, list) {
+        var completeBox = ["@qq.com", "@126.com", "@163.com", "@souhu.com", "@sina.com"];
+        input.bind("input propertychange", function() {
+            var listVal = $(input).val();
+            if (input.val().indexOf("@") != -1) {
+                listVal = listVal.slice(0, listVal.indexOf("@"));
+            }
+            // list.find("option").remove();
+            var listItem = "";
+            for (var i = 0; i < completeBox.length; i++) {
+                listItem += "<option value='" + listVal + completeBox[i] + "'></option>";
+                console.log(listItem);
+                // list.append(listItem);
+            }
+            list.html(listItem);
+        })
+    }
+    emailComplete($("#userEmail"), $("#emailList"));
+    </script>
+</body>
+
+</html>

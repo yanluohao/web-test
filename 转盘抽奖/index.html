@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+    <script type="text/javascript" src="../commonJS/jquery.js"></script>
+    <script type="text/javascript" src="../commonJS/jquery.rotate.min.js"></script>
+    <style type="text/css">
+        .round_bg{
+            width: 400px;
+            height: 400px;
+            background: #fff6db;
+            border-radius: 50%;
+            margin:0 auto;
+            text-align: center;
+        }
+        .round_bg img{
+            margin-top: 107px;
+            animation: btnRound 2s;
+            cursor: pointer;
+        }
+/*        @keyframes btnRound{
+            0%{transform:rotate(0deg)}
+            100%{transform:rotate(360deg)}
+        }*/
+    </style>
+</head>
+<body>
+    <div class="round_bg">
+        <img src="images/playbtn.png" alt="" id="testImg">
+    </div>
+    <script type="text/javascript">
+    var countNum=0;
+        $("#testImg").rotate({
+            bind:{
+                click:function(){
+                    var a=Math.floor(Math.random()*360)+3*360;
+                    if(countNum<5){
+                        $(this).rotate({
+                            angle:0,
+                            animateTo:a,
+                            duration:2500,
+                            callback:function(){
+                                function backToStart(obj){
+                                    $(obj).rotate({
+                                        angle:0
+                                    })
+                                    countNum++;
+                                }
+                                if(a%360>=0&&a%360<90){
+                                    alert("第一象限");
+                                    backToStart(this);
+                                }
+                                else if(a%360>=90&&a%360<180){
+                                    alert("第二象限");
+                                    backToStart(this);
+                                }
+                                else if(a%360>=180&&a%360<270){
+                                    alert("第三象限");
+                                    backToStart(this);
+                                }
+                                else{
+                                    alert("第四象限");
+                                    backToStart(this);
+                                }
+                            }
+                        })
+                    }
+else{
+    alert("您今天的五次机会已经用尽");
+}
+                }
+            }
+        })
+    </script>
+</body>
+</html>
