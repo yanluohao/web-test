@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>购物车</title>
+	<link rel="stylesheet" href="">
+	<style type="text/css">
+		*{
+			margin:0;
+			padding:0;
+			font-family: "微软雅黑";
+		}
+		#shopcarContainer{
+			width: 400px;
+			height: 200px;
+			border:1px solid #ccc;
+			margin:200px 200px;
+		}
+		.oneTd{
+			width: 100px;
+			display: inline-block;
+		}
+	</style>
+	<script type="text/javascript" src="commonJS/vue.js"></script>
+</head>
+<body>
+	<div id="shopcarContainer">
+		<template v-if="goods.length">
+			<div>
+				<span class="oneTd">商品名称</span>
+				<span class="oneTd">商品数量</span>
+				<span class="oneTd">商品单价</span>
+			</div>
+			<div v-for="item in goods">
+				<span class="oneTd">{{item.name}}</span>
+				<span class="oneTd"><button style="width:15px" v-on:click="reduceNum($index)">-</button>{{item.num}}<button style="width:15px" v-on:click="addNum($index)">+</button></span>
+				<span class="oneTd">{{item.price}}</span>
+			</div>
+			<div class="totalCost">
+				总价是：<span>{{total}}元</span>
+			</div>
+			<button>结算</button>
+		</template>
+		<template v-else>
+			<div>
+				<h2>目前购物车中没有任何物品，赶快去选购自己心爱的物品吧</h2>
+			</div>
+		</template>
+	</div>
+	<script type="text/javascript">
+		new Vue({
+			el:"#shopcarContainer",
+			data:{
+				goods:[{
+					name:"iphone7",
+					num:0,
+					price:5388
+				},{
+					name:"sumsung7",
+					num:1,
+					price:4444
+				},{
+					name:"oppo R7",
+					num:0,
+					price:1111
+				}]
+			},
+			computed:{
+				total:function(){
+					var total=0;
+					for(var i=0;i<this.goods.length;i++){
+						var self=this.goods[i];
+						total+=self.num*+self.price;
+					}
+					return total;
+				}
+			},
+			methods:{
+				reduceNum:function($index){
+					if(this.goods[$index].num<=1){
+						this.goods.splice($index,1);
+					}
+					else{
+						this.goods[$index].num--;
+					}
+				},
+				addNum:function($index){
+					this.goods[$index].num++;
+				}
+			}
+		})
+	</script>
+</body>
+</html>

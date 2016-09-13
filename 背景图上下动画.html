@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+    <style type="text/css">
+        .bg_test{
+            width: 1200px;
+            height: 300px;
+            margin:0 auto;
+            background: url(images/bg_scroll.jpg);
+            background-size: cover;
+            background-position: bottom;
+            animation: bg_scroll 10s infinite alternate linear; /*执行无限次，交替轮流执行，匀速执行*/
+        }
+        @keyframes bg_scroll{
+            to{
+                background-position: top;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg_test"></div>
+</body>
+</html>
