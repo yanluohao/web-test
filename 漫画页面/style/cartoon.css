@@ -1,58 +1,3 @@
-/* Çå³ýÄÚÍâ±ß¾à */
-
-body,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-hr,
-p,
-blockquote,
-
-/* structural elements ½á¹¹ÔªËØ */
-
-dl,
-dt,
-dd,
-ul,
-ol,
-li,
-
-/* list elements ÁÐ±íÔªËØ */
-
-pre,
-
-/* text formatting elements ÎÄ±¾¸ñÊ½ÔªËØ */
-
-fieldset,
-lengend,
-button,
-input,
-textarea,
-
-/* form elements ±íµ¥ÔªËØ */
-
-th,
-td,
-img {
-    /* table elements ±í¸ñÔªËØ */
-    margin: 0;
-    padding: 0;
-}
-
-body,
-button,
-input,
-select,
-textarea {
-    /* for ie */
-    /*font: 12px/1 Tahoma, Helvetica, Arial, "ËÎÌå", sans-serif;*/
-    font-family: "Î¢ÈíÑÅºÚ";
-    font-size: 12px;
-}
-
 ul,
 li {
     list-style-type: none;
@@ -104,7 +49,7 @@ input {
 .newbiepic {
     z-index: 9999;
     position: fixed;
-    top: 9%;
+    top:  9%;
     left: 31%;
 }
 
@@ -198,7 +143,7 @@ input {
     height: 752px;
     left: 50%;
     bottom: 1%;
-    background: url(../images/cartoonItem.png) no-repeat 100%;
+    background:no-repeat 100%;
     transform: translate(-50%,0);
 }
 .cartoonItembox_bg{
@@ -233,4 +178,17 @@ input {
 
 .listNext{
     margin-left: 220px;
+}
+.largePic{
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    /* 圆角 */
+    border-radius: 100%;
+    /* 这里使用多重阴影、来实现玻璃的效果 */
+    box-shadow: 0 0 0 7px rgba(255,255,255,0.8),0 0 7px 7px rgba(0,0,0,0.3),inset 0 0 40px 2px rgba(0,0,0,0.3); 
+    /* 加载放大镜的图片 */
+    /*background: url(../dataint/1-1.png) no-repeat;*/
+    /* 放大镜默认隐藏 */
+    display: none;
 }
