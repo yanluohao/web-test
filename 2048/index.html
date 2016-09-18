@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="2048main.css">
+</head>
+<body>
+<header>
+    <h2>2048</h2>
+    <div class="newGame" onclick="newGame();">New Game</div>
+    <p>score:<span id="score">0</span></p>
+</header>
+    <div class="allContainer">
+        <div class="smallbox_bg" id="smallbox_0_0"></div>
+        <div class="smallbox_bg" id="smallbox_0_1"></div>
+        <div class="smallbox_bg" id="smallbox_0_2"></div>
+        <div class="smallbox_bg" id="smallbox_0_3"></div>
+        <div class="smallbox_bg" id="smallbox_1_0"></div>
+        <div class="smallbox_bg" id="smallbox_1_1"></div>
+        <div class="smallbox_bg" id="smallbox_1_2"></div>
+        <div class="smallbox_bg" id="smallbox_1_3"></div>
+        <div class="smallbox_bg" id="smallbox_2_0"></div>
+        <div class="smallbox_bg" id="smallbox_2_1"></div>
+        <div class="smallbox_bg" id="smallbox_2_2"></div>
+        <div class="smallbox_bg" id="smallbox_2_3"></div>
+        <div class="smallbox_bg" id="smallbox_3_0"></div>
+        <div class="smallbox_bg" id="smallbox_3_1"></div>
+        <div class="smallbox_bg" id="smallbox_3_2"></div>
+        <div class="smallbox_bg" id="smallbox_3_3"></div>
+    </div>
+    <div class="popup">
+        游戏结束了，你可以通过点击New Game来开始新的游戏
+        <span id="close" onclick="closePop()">
+            关闭
+        </span>
+    </div>
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="hammer.js"></script>
+    <script type="text/javascript" src="2048base.js"></script>
+    <script type="text/javascript" src="2048.js"></script>
+    <script type="text/javascript">
+    //解禁全部方位的swipe事件;
+        hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+    </script>
+</body>
+</html>

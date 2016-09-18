@@ -1,0 +1,171 @@
+/* Çå³ýÄÚÍâ±ß¾à */
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+blockquote,
+
+/* structural elements ½á¹¹ÔªËØ */
+
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+
+/* list elements ÁÐ±íÔªËØ */
+
+pre,
+
+/* text formatting elements ÎÄ±¾¸ñÊ½ÔªËØ */
+
+fieldset,
+lengend,
+button,
+input,
+textarea,
+
+/* form elements ±íµ¥ÔªËØ */
+
+th,
+td,
+img {
+    /* table elements ±í¸ñÔªËØ */
+    margin: 0;
+    padding: 0;
+}
+
+ul,
+li {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+a:hover,
+a:visited,
+a:link {
+    text-decoration: none;
+}
+
+img {
+    border: 0;
+}
+
+input {
+    outline: 0;
+    border: 0;
+}
+
+.clearfix:after {
+    content: "";
+    display: block;
+    clear: both;
+    visibility: hidden;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+.allContainer {
+    width: 400px;
+    height: 400px;
+    margin: 50px auto;
+    background: #bdafa1;
+    border-radius: 10px;
+    position: relative;
+}
+
+.smallbox_bg {
+    width: 80px;
+    height: 80px;
+    background: #d0c0b3;
+    font-size: 30px;
+    text-align: center;
+    line-height: 80px;
+    color: #666;
+    font-weight: bold;
+    position: absolute;
+    border-radius: 10px;
+}
+
+.number_box {
+    width: 80px;
+    height: 80px;
+    background: #d0c0b3;
+    font-size: 30px;
+    text-align: center;
+    line-height: 80px;
+    color: #666;
+    font-weight: bold;
+    position: absolute;
+    border-radius: 10px;
+}
+
+body {
+    font-family: "微软雅黑";
+}
+
+header {
+    width: 100%;
+    text-align: center;
+}
+
+header h2 {
+    font-size: 60px;
+    font-weight: bold;
+    margin-top: 50px;
+}
+
+.newGame {
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
+    background: #987c6c;
+    margin: 20px auto;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.hasValue {
+    background: #ccc;
+}
+
+.popup{
+    position: fixed;
+    left: 50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+    width: 600px;
+    height: 200px;
+    text-align: center;
+    line-height: 200px;
+    border-radius: 20px;
+    background: #ededde;
+    display: none;
+    border: 5px solid #bdafa1;
+}
+
+#close{
+    width: 80px;
+    height: 30px;
+    background: #ccc;
+    display: block;
+    float: right;
+    line-height: 30px;
+    cursor:pointer;
+    border-radius: 5px;
+    margin:10px 10px 0 0;
+}
