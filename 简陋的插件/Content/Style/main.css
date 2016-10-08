@@ -1,0 +1,212 @@
+/* Çå³ýÄÚÍâ±ß¾à */
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+blockquote,
+
+/* structural elements ½á¹¹ÔªËØ */
+
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+
+/* list elements ÁÐ±íÔªËØ */
+
+pre,
+
+/* text formatting elements ÎÄ±¾¸ñÊ½ÔªËØ */
+
+fieldset,
+lengend,
+button,
+input,
+textarea,
+
+/* form elements ±íµ¥ÔªËØ */
+
+th,
+td,
+img {
+    /* table elements ±í¸ñÔªËØ */
+    margin: 0;
+    padding: 0;
+}
+
+ul,
+li {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+a:hover,
+a:visited,
+a:link {
+    text-decoration: none;
+}
+
+img {
+    border: 0;
+}
+
+input {
+    outline: 0;
+    border: 0;
+}
+
+.clearfix:after {
+    content: "";
+    display: block;
+    clear: both;
+    visibility: hidden;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+.popupCover {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.5;
+    position: fixed;
+    z-index: 98;
+    left:0;
+    top:0;
+}
+
+#popupMultipleSelect {
+    width: 780px;
+    height: 560px;
+    border-radius: 5px;
+    background: #fff;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 99;
+    font-family: "微软雅黑";
+}
+
+#popupHeader {
+    border-radius: 5px 5px 0 0;
+    line-height: 48px;
+    width: 100%;
+    height: 48px;
+    background: #fafafa;
+}
+
+#popupHeader h2 {
+    font-size: 14px;
+    font-weight: normal;
+    margin-left: 20px;
+    float: left;
+}
+
+#popupHeader p{
+    font-size: 13px;
+    color: #ccc;
+    float: right;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+#popupContent{
+    padding-top: 9px;
+    background: #fff;
+    height: 435px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+
+.professionTitle{
+    font-size: 14px;
+    color: #666;
+    display: inline-block;
+    margin: 12px 0 0 32px;
+    float: left;
+    height: 36px;
+    line-height: 34px;
+    width: 150px;
+}
+
+.nameModule>span{
+    display: inline-block;
+    border-radius: 4px;
+    box-sizing: border-box;
+    border: 1px solid #dcdcdc;
+    height: 36px;
+    padding: 0 16px;
+    margin:12px 0 0 5px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    line-height: 34px;
+    text-align: center;
+}
+
+.nameModule>span.active{
+    border:1px solid #ff6b00;
+    background: url(Orange/Images/click_bg.png) right bottom no-repeat;
+}
+
+.nameModule>span:hover{
+    border:1px solid #ff6b00;
+}
+
+#confirmBtn,#cancelBtn{
+    width: 64px;
+    height: 35px;
+    box-sizing: border-box;
+    border: 1px solid #dcdcdc;
+    font-size: 14px;
+    color: #666;
+    border-radius: 4px;
+    float: left;
+    text-align: center;
+    line-height: 33px;
+    cursor: pointer;
+}
+
+#confirmBtn:hover,#cancelBtn:hover{
+    background: #ff6b00;
+    color: #fff;
+}
+
+#confirmBtn{
+    margin:15px 0 0 310px;
+    background: #ff6b00;
+    color: #fff;
+}
+
+#cancelBtn{
+    margin:15px 0 0 30px;
+}
+
+.nameModule{
+    width: 580px;
+    float: left;
+}
+
+.professionLine{
+    width: 100%;
+}
+
+.multipleIndustryClick{
+    readOnly:true;
+}

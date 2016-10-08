@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>选择行业分类模块多选</title>
+    <link rel="stylesheet" href="Content/Style/main.css">
+    <script type="text/javascript" src="Scripts/js/jquery.js"></script>
+</head>
+
+<body>
+    <div id="introduceHowtouse" style="width:1000px;margin:50px 0 0 100px;font-family:'simHei'">
+    <input type="text" class="multipleIndustryClick" style="border:1px solid #000;" id="test1" readOnly="true">
+    <input type="text" class="multipleIndustryClick" style="border:1px solid #000;" id="test2" readOnly="true">
+    <input type="text" class="multipleIndustryClick" style="border:1px solid #000;" id="test3" readOnly="true">
+    <h2>本页面中的选择行业分类模块的使用：</h2>
+    <p>1、引入页面中的main.css,jquery.js,main.js文件，同时引入该页面下的JSON和下图中的script标签,下图中的choosenIndustryJson为选中的选项对应的JSON数据<img src="Content/Style/Orange/Images/industryTip.png" alt=""></p>
+    <p style="margin-top:10px;">2、首先给需要用到该方法的input标签添加类名class="multipleIndustryClick",然后<br>
+           输入你需要使用方法的元素的id，例如：$("#test").industryChoosen({
+            length:5
+           }); <br>上述是调用本方法的格式，industryChoosen的默认情况length为1即最多只能选择一项，通过修改length的值来控制最多选多少项。</p>
+    <p style="margin-top:10px;">3、如果是整页复制记得删除id="introduceHowtouse"的内容</p>
+    </div>
+    <script type="text/javascript" src="Scripts/js/main.js"></script>
+    <script type="text/javascript">
+        var industryajson = [{ "Id": "1", "ParentId": "", "Name": "互联网•游戏•软件" }, { "Id": "2", "ParentId": "", "Name": "电子•通信•硬件" }, { "Id": "3", "ParentId": "", "Name": "房地产•建筑•物业" }, { "Id": "4", "ParentId": "", "Name": "金融" }, { "Id": "5", "ParentId": "", "Name": "广告•传媒•教育•文化" }, { "Id": "6", "ParentId": "", "Name": "制药•医疗" }, { "Id": "7", "ParentId": "", "Name": "消费品" }, { "Id": "8", "ParentId": "", "Name": "汽车•机械•制造" }, { "Id": "9", "ParentId": "", "Name": "服务•外包•中介" }, { "Id": "10", "ParentId": "", "Name": "交通•贸易•物流" }, { "Id": "11", "ParentId": "", "Name": "能源•化工•环保" }, { "Id": "12", "ParentId": "", "Name": "政府•农林牧渔•其他" }];
+        
+        var industrybjson = [{ "Id": "13", "ParentId": "1", "Name": "互联网/移动互联网/电子商务" }, { "Id": "14", "ParentId": "1", "Name": "网络游戏" }, { "Id": "15", "ParentId": "1", "Name": "计算机软件" }, { "Id": "16", "ParentId": "1", "Name": "IT服务/系统集成" }, { "Id": "17", "ParentId": "2", "Name": "电子技术/半导体/集成电路" }, { "Id": "18", "ParentId": "2", "Name": "通讯（设备/运营/增值）" }, { "Id": "19", "ParentId": "2", "Name": "计算机硬件/网络设备" }, { "Id": "20", "ParentId": "3", "Name": "房地产开发/建筑/建材/工程" }, { "Id": "21", "ParentId": "3", "Name": "规划/设计/装潢" }, { "Id": "22", "ParentId": "3", "Name": "房地产服务（物业管理/地产经纪）" }, { "Id": "23", "ParentId": "4", "Name": "银行" }, { "Id": "24", "ParentId": "4", "Name": "保险" }, { "Id": "25", "ParentId": "4", "Name": "基金/证券/期货/投资" }, { "Id": "26", "ParentId": "4", "Name": "会计/审计" }, { "Id": "27", "ParentId": "4", "Name": "信托/担保/拍卖/典当" }, { "Id": "28", "ParentId": "5", "Name": "广告/公关/市场推广/会展" }, { "Id": "29", "ParentId": "5", "Name": "影视/媒体/艺术/文化/出版" }, { "Id": "30", "ParentId": "5", "Name": "教育/培训/学术/文化/出版" }, { "Id": "31", "ParentId": "6", "Name": "制药/生物工程" }, { "Id": "32", "ParentId": "6", "Name": "医疗/保健/美容/卫生服务" }, { "Id": "33", "ParentId": "6", "Name": "医疗设备/器械" }, { "Id": "34", "ParentId": "7", "Name": "食品/饮料/烟酒/日化" }, { "Id": "35", "ParentId": "7", "Name": "百货/批发/零售" }, { "Id": "36", "ParentId": "7", "Name": "服装服饰/纺织/皮革" }, { "Id": "37", "ParentId": "7", "Name": "家具/家电" }, { "Id": "38", "ParentId": "7", "Name": "办公用品及设备" }, { "Id": "39", "ParentId": "7", "Name": "奢侈品/收藏品" }, { "Id": "40", "ParentId": "7", "Name": "工艺品/珠宝/玩具" }, { "Id": "41", "ParentId": "8", "Name": "汽车/摩托车" }, { "Id": "42", "ParentId": "8", "Name": "机械制造/机电/重工" }, { "Id": "43", "ParentId": "8", "Name": "印刷/包装/造纸" }, { "Id": "44", "ParentId": "8", "Name": "原材料及加工" }, { "Id": "45", "ParentId": "8", "Name": "仪器/仪表/工业自动化/电气" }, { "Id": "46", "ParentId": "9", "Name": "专业服务（咨询/财会/法律/翻译等）" }, { "Id": "47", "ParentId": "9", "Name": "中介服务" }, { "Id": "48", "ParentId": "9", "Name": "外包服务" }, { "Id": "49", "ParentId": "9", "Name": "检测/认证" }, { "Id": "50", "ParentId": "9", "Name": "旅游/酒店/餐饮服务/生活服务" }, { "Id": "51", "ParentId": "9", "Name": "娱乐/休闲/体育" }, { "Id": "52", "ParentId": "9", "Name": "租赁服务" }, { "Id": "53", "ParentId": "10", "Name": "交通/物流/运输" }, { "Id": "54", "ParentId": "10", "Name": "贸易/进出口" }, { "Id": "55", "ParentId": "10", "Name": "航天/航空" }, { "Id": "56", "ParentId": "11", "Name": "能源（电力/水利）" }, { "Id": "57", "ParentId": "11", "Name": "石油/石化/化工" }, { "Id": "58", "ParentId": "11", "Name": "采掘/冶炼/矿产" }, { "Id": "59", "ParentId": "11", "Name": "环保" }, { "Id": "60", "ParentId": "12", "Name": "政府/农林渔牧" }, { "Id": "61", "ParentId": "12", "Name": "其他" }];
+
+    </script>
+    <script type="text/javascript">
+        //定义一个全局变量
+        var choosenIndustryJson;
+        //点击确定后触发事件
+        function confirmProfession() {
+            $(".popupCover").remove();
+            var choosenIndustryJsonArr=[];
+            //在这里写入点击确定后发生的后续事件
+            var choosenIndustryLength=$("#popupContent .active").length;
+            var choosenIndustry=[];
+            for(var i=0;i<choosenIndustryLength;i++){
+                choosenIndustry.push($("#popupContent .active").eq(i).html());
+            }
+            for(var j=0;j<industrybjson.length;j++){
+                for(var k=0;k<choosenIndustry.length;k++){
+                    if(industrybjson[j].Name==choosenIndustry[k]){
+                        choosenIndustryJsonArr.push(industrybjson[j]);
+                    }
+                }
+            }
+            //此处为获取选中的行业对应的JSON数据，该变量为全局变量
+            choosenIndustryJson=choosenIndustryJsonArr;
+            alert(JSON.stringify(choosenIndustryJson));
+            $(".multipleIndustryClick").eq(multipleIndustryIndex).val(choosenIndustry);
+            $("#popupMultipleSelect").remove();
+        }
+    </script>
+    <script type="text/javascript">
+        $("#test1").industryChoosen({
+            //选择最多的选项数
+            length:3
+        })
+        $("#test2").industryChoosen();
+        $("#test3").industryChoosen({
+            length:5
+        })
+    </script>
+</body>
+
+</html>
