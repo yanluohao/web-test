@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>picture标签的响应式使用</title>
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+    <picture>
+        <source srcset="images/中秋节.png" media="(min-width:700px)">
+        <source srcset="images/重阳.png" media="(min-width:400px)">
+        <source srcset="images/playbtn.png" media="(min-width:100px)">
+        <img src="images/bg_scroll.jpg" alt="">
+    </picture>
+    <picture>
+        <source srcset="images/bg_scroll.jpg" media="(min-width:1200px)">   
+        <source srcset="images/中秋节.png" media="(min-width:700px)" sizes="80vw">
+<!--         以下是嵌入使用像素密度描述，增加高分辨率的像素密度描述，像 1x,1.5x,2x和3x. 新的srcset属性应用到<img>和<source>元素。下面的例子支持1x,1.5x,和2x 的屏幕，个人理解是将图片进行了缩放，本来是400px多的宽，变成了200px多的宽。
+        同时还有个sizes属性，暂时不知道如何体现它的效果 -->
+        <source srcset="images/重阳.png,
+                        images/重阳.png  1.5x,
+                        images/重阳.png 2x,
+                        images/重阳.png 0.5x
+        " media="(min-width:400px)">   
+        <source srcset="images/playbtn.png" media="(min-width:100px)">
+        <img src="images/bg_scroll.jpg" alt="">
+    </picture>
+</body>
+
+</html>
