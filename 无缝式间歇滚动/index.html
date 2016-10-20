@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+    <style type="text/css">
+    body,h1,h2,h3,ul,li,p{margin:0;padding:0;}
+
+ul{list-style-type:none;}
+
+    /* 水平滚动
+    ------------------------------ */
+    
+    .scroll_horizontal {
+        position: relative;
+        width: 1100px;
+        height: 120px;
+        padding: 20px;
+        line-height: 20px;
+    }
+    
+    .scroll_horizontal .box {
+        overflow: hidden;
+        position: relative;
+        width: 1000px;
+        margin: 0 auto;
+    }
+    
+    .scroll_horizontal .list {
+        overflow: hidden;
+        width: 9999px;
+    }
+    
+    .scroll_horizontal .list li {
+        float: left;
+        width: 200px;
+        text-align: center;
+    }
+
+    .scroll_horizontal .list li span{
+    	display: block;
+    	color: #000;
+    	z-index: 9999;
+    }
+    
+    .scroll_horizontal .plus,
+    .scroll_horizontal .minus {
+        position: absolute;
+        top: 50px;
+        width: 30px;
+        height: 60px;
+        background: #f90;
+        cursor: pointer;
+    }
+    
+    .scroll_horizontal .plus {
+        left: 10px;
+    }
+    
+    .scroll_horizontal .minus {
+        right: 10px;
+    }
+    
+    .scroll_horizontal .plus:hover,
+    .scroll_horizontal .minus:hover {
+        background: #f60;
+    }
+    </style>
+</head>
+
+<body>
+<center>
+    <div id="test1" class="scroll_horizontal">
+        <div class="box">
+            <ul class="list">
+                <li>
+                    <a href="http://www.juheweb.com" target="_blank"><img src="img/temp_pic_1.jpg"></a>
+                    <span>111</span>
+                    <div style="background: red;width:200px;height:20px;"></div>
+                </li>
+                <li>
+                    <a href="http://www.juheweb.com" target="_blank"><img src="img/temp_pic_2.jpg"></a>
+                    <span>222</span>
+                </li>
+                <li>
+                    <a href="http://www.juheweb.com" target="_blank"><img src="img/temp_pic_3.jpg"></a>
+                    <span>333</span>
+                </li>
+                <li>
+                    <a href="http://www.juheweb.com" target="_blank"><img src="img/temp_pic_4.jpg"></a>
+                    <span>444</span>
+                </li>
+                <li>
+                    <a href="http://www.juheweb.com" target="_blank"><img src="img/temp_pic_5.jpg"></a>
+                    <span>555</span>
+                </li>
+                <li>
+                    <a href="http://www.juheweb.com" target="_blank"><img src="img/temp_pic_4.jpg"></a>
+                    <span>444</span>
+                </li>
+            </ul>
+        </div>
+        <div class="plus"></div>
+        <div class="minus"></div>
+    </div>
+    </center>
+    <script type="text/javascript" src="jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="jquery.cxscroll.js"></script>
+    <script type="text/javascript">
+    $("#test1").cxScroll();
+    </script>
+</body>
+
+</html>
