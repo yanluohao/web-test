@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="css/onepage-scroll.css">
+	<style type="text/css">
+		.page1 { background-color: #1bbc9b;}
+		.page2 { background-color: #FF7F50;}
+		.page3 { background-color: #4BBFC3;}
+		.page4 { background-color: #f90;}
+		p.title { position: relative; top: 35%; font: 700 40px "Microsoft Yahei"; color: #fff; text-align: center;}
+	</style>
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/jquery.onepage-scroll.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.main').onepage_scroll({
+				sectionContainer: '.testPage',     //绑定的元素，可以是标签或class，默认值为section
+				easing:'ease',                     //动画过渡的效果，可选ease/linear/ease-in，默认值是ease
+				animationTime:800,                 //动画过渡时间，以毫秒为单位
+				pagination:false,                  //显示右侧圆点项目导航
+				updateUrl:false,                   //URL显示命名锚记
+				// beforeMove:,                    //滚动前的回调函数
+				// afterMove:,                     //滚动后的回调函数
+				loop:false,                        //循环滚动，默认为true
+				keyboard:true,                     //键盘控制，支持左右上下/page up/page down/home/end
+				responsiveFallback:false,          //回退，即使用浏览器自带滚动，默认我 false，既不使用浏览器自带滚动。也可以指定一个固定值，当页面的宽度小于这个值时，将自动回退
+				direction: 'vertical'           //页面滚动方向，可选 vertical（垂直/竖向）和 horizontal（水平/横向），默认值是vertical
+			});
+		});
+	</script>
+</head>
+<body>
+	<div class="main">
+		<div class="testPage page1">
+			<p class="title">水平 / 横向滚动</p>
+		</div>
+		<div class="testPage page2">
+			<p class="title">第二屏</p>
+		</div>
+		<div class="testPage page3">
+			<p class="title">第三屏</p>
+		</div>
+		<div class="testPage page4">
+			<p class="title">第四屏</p>
+		</div>
+	</div>
+
+</body>
+</html>
