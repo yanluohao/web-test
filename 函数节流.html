@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>函数节流</title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+    避免resize时多次执行，对服务器造成影响
+	<script type="text/javascript">
+		var n=0;
+		function resizehandler(){
+		       console.log(++n); 
+		}
+		//javascript函数节流
+		function throttle(method,context){
+		    clearTimeout(method.tId);
+		    method.tId=setTimeout(function(){
+		        method.call(context);
+		    },500);
+		}
+		window.onresize=function(){
+		    throttle(resizehandler,window);
+		}
+	</script>
+</body>
+</html>

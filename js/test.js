@@ -267,3 +267,11 @@ var day = Math.floor(datedifference / (1000 * 60 * 60 * 24)) + 1;
 
 console.log(day);
 */
+
+// 多位数数字使用sort排序
+var demoArr=[1,3,4,22,5,6,17,2,3,1,111,221];
+function sortNumber(a,b){
+    return a-b;
+}
+demoArr.sort(sortNumber);
+console.log(demoArr);
