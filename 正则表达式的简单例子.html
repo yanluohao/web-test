@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+    <script type="text/javascript">
+    var testString = 'test<span style="color:red;font-size:14px;">textContent</span>11122<测试标签><1>22222<33>测试';
+    var testString2=testString;
+    var reg = new RegExp('<[a-zA-Z][^>]*>|<\/+[a-zA-Z][^>]*>', 'g');          
+    //匹配<>(尖括号)且尖括号中的内容不为数字或者中文时,删除该尖括号和其中的内容。并保留两个闭合的html标签中的文本内容。
+    var b = testString.replace(reg, '');
+    console.log(b);
+
+    var regStr = /\<|\>/g;
+    // 匹配"<"或">",并将其匹配的对象转化为相应的return值
+    str = testString2.replace(regStr, function(matchStr) {
+        switch (matchStr) {
+            case "<":
+                return "&lt;";
+                break;
+            case ">":
+                return "&gt;";
+                break;
+        }
+    })
+    console.log(str);
+    </script>
+</body>
+
+</html>

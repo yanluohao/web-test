@@ -118,16 +118,17 @@
                 //添加cookie  
                 addCookie("userName", userName, 7, "/");
                 addCookie("userPass", userPass, 7, "/");
-                alert("记住了你的密码登录。");
-                window.location.href = "test.html";
+                alert("记住了你的密码登录。该测试只有在服务器环境中才有效，本地浏览无效");
+                window.location.href = "cookie的简单使用.html";
             } else {
                 //删除cookie
                 deleteCookie("userName","/");
                 deleteCookie("userPass","/");
-                alert("不记密码登录。");
-                window.location.href = "test.html";
+                alert("不记密码登录。该测试只有在服务器环境中才有效，本地浏览无效");
+                window.location.href = "cookie的简单使用.html";
             }
         }
+        document.cookie="passNum=111";
     </script>
 </body>
 </html>
