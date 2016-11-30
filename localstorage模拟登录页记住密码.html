@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+    <style type="text/css">
+    body {
+        font-family: "simHei";
+    }
+    
+    .loginBox {
+        width: 600px;
+        height: 400px;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border: 1px solid #ccc;
+    }
+    
+    .loginBox h2 {
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        font-weight: normal;
+        margin: 0 auto;
+        border-bottom: 1px solid #ccc;
+    }
+    
+    .usernamebox>span,
+    .userpwdbox>span {
+        display: block;
+        float: left;
+        width: 80px;
+        margin-left: 200px;
+    }
+    
+    .usernamebox {
+        margin: 100px auto 0;
+    }
+    
+    .userpwdbox {
+        margin: 20px auto 50px;
+    }
+    
+    .if_remember {
+        margin-left: 200px;
+    }
+    
+    .btn {
+        margin-left: 200px;
+    }
+    
+    .btn>div {
+        cursor: pointer;
+        float: left;
+        margin: 50px 20px 0 40px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="loginBox">
+        <h2>登陆界面</h2>
+        <div class="userInfo">
+            <div class="usernamebox">
+                <span>用户名：</span>
+                <input type="text" id="username">
+            </div>
+            <div class="userpwdbox">
+                <span>密码：</span>
+                <input type="password" id="userpwd">
+            </div>
+            <div class="if_remember">
+                <input type="checkbox" id="if_remember_userinfo"><span>是否记住密码</span>
+            </div>
+            <div class="btn">
+                <div class="loginbtn" onclick="login()">登录</div>
+                <div class="cancelbtn">重置</div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    var userInfoArr = localStorage.userInfo == undefined ? [] : JSON.parse(localStorage.userInfo);
+    var userName = document.querySelector("#username");
+    var userPwd = document.querySelector("#userpwd");
+    var if_checked = document.querySelector("#if_remember_userinfo");
+
+    function login() {
+        if (userName.value !== "" && userPwd.value !== "" && if_checked.checked) {
+            if(userInfoArr.length==0){
+                var userObj = {
+                    username: userName.value,
+                    userpwd: userPwd.value
+                };
+                userInfoArr.push(userObj);
+                localStorage.userInfo = JSON.stringify(userInfoArr);
+                return location.reload(true);
+            }
+            else{
+                userInfoArr.splice(0,1);
+                var userObj = {
+                    username: userName.value,
+                    userpwd: userPwd.value
+                };
+                userInfoArr.push(userObj);
+                localStorage.userInfo = JSON.stringify(userInfoArr);
+                return location.reload(true);
+            }
+        } else if (userName !== "" && userPwd !== "" && !if_checked.checked) {
+            localStorage.removeItem("userInfo");
+            return location.reload(true);
+        } else if (userName == "" || userPwd == "") {
+            if (userName == "") {
+                userName.focus();
+                return;
+            } else {
+                userPwd.focus();
+                return;
+            }
+        }
+    }
+    window.onload=function(){
+        if(localStorage.userInfo){
+            var userInfomation=JSON.parse(localStorage.userInfo);
+            userName.value=userInfomation[0].username;
+            userPwd.value=userInfomation[0].userpwd;
+            if_checked.checked=true;
+        }
+    }
+    </script>
+</body>
+
+</html>

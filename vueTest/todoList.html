@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>我的日常工作列表</title>
+    <link rel="stylesheet" href="">
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
+    <style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    
+    body {
+        font-family: "simHei";
+    }
+    
+    [v-cloak] {
+        display: none;
+    }
+    
+    #container {
+        width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    
+    .header h2 {
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+        background: #5c9bb7;
+        color: #fff;
+    }
+    
+    .header input {
+        outline: 0;
+        border: 2px solid #ccc;
+        width: 400px;
+        display: block;
+        margin: 20px auto;
+        height: 40px;
+        border-radius: 10px;
+        text-indent: 10px;
+        font-family: "simhei";
+        font-size: 16px;
+    }
+    
+    .listContainer {
+        margin-top: 50px;
+    }
+    
+    .listContainer ul li {
+        width: 100%;
+        height: 40px;
+        list-style-type: none;
+        text-align: center;
+        border-bottom: 1px solid #ccc;
+        box-sizing: border-box;
+        line-height: 40px;
+        background: #98f3a1;
+        color: #fff;
+    }
+    
+    .listContainer ul li.finished {
+        background: #fc5421;
+    }
+    
+    .listContainer ul li span {
+        display: block;
+        float: left;
+        width: 10%;
+        height: 40px;
+    }
+    
+    .listContainer ul li span.finished {
+        color: #ccc;
+    }
+    
+    .listContainer ul li span:nth-of-type(2).finishedContent {
+        color: #fff;
+    }
+    
+    .listContainer ul li span:first-of-type {
+        width: 5%;
+        font-size: 18px;
+        cursor: pointer;
+    }
+    
+    .listContainer ul li span:nth-of-type(2) {
+        width: 35%;
+        text-align: left;
+        color: #666;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    
+    .listContainer ul li span:nth-of-type(3),
+    .listContainer ul li span:nth-of-type(4) {
+        width: 20%;
+    }
+    
+    .listContainer ul li span:nth-of-type(5),
+    .listContainer ul li span:nth-of-type(6) {
+        cursor: pointer;
+    }
+    .clear_finishedlistbtn,.clear_listbtn{
+        width: 120px;
+        height: 40px;
+        line-height: 40px;
+        float: right;
+        margin-top: 50px;
+        border-radius: 5px;
+        background: #ccc;
+        cursor: pointer;
+    }
+    .clear_finishedlistbtn{
+        margin-right: 50px;
+    }
+    .if_finishedclearwarn,.if_clearwarn{
+        width: 400px;
+        height: 200px;
+        background: #fff;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        z-index: 100;
+        border-radius: 10px;
+        display: none;
+    }
+    .clearlist_head{
+        height:40px;
+        width: 100%;
+        line-height: 40px;
+        background: #f3f3f3;
+        border-radius: 10px 10px 0 0;
+    }
+    .clearlist_head span{
+        display: block;
+        float: right;
+        width: 30px;
+        height: 40px;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+    .if_finishedclearwarn p,.if_clearwarn p{
+        width: 80%;
+        margin: 0 auto;
+        text-align: left;
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+    .clearlist_footer{
+        height: 44px;
+        width: 100%;
+        background: #f3f3f3;
+        border-radius: 0 0 10px 10px;
+    }
+    .clearlist_footer span{
+        display: block;
+        float: left;
+        width: 80px;
+        height: 30px;
+        line-height: 30px;
+        margin-top: 7px;
+        margin-left: 100px;
+        box-sizing: border-box;
+        background: #ff0000;
+        color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .clearlist_footer span:nth-of-type(2){
+        float: right;
+        margin-left: 0;
+        margin-right: 100px;
+        background: #ccc;
+    }
+    .modalcover{
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        background:rgba(0,0,0,0.4);
+        top: 0;
+        left: 0;
+        z-index: 99;
+        display: none;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="container" v-cloak>
+        <div class="header">
+            <h2>This is a todoList</h2>
+            <input type="text" id="inputbox" placeholder="write something to do" v-model="newitem" @keyup.enter="addNewItem()">
+        </div>
+        <span style="color:#ff0000">！当！前！页！面！数！据！来！自！localStorage!切！勿！清！除！缓！存！</span>
+        <div class="listContainer">
+            <ul>
+                <li><span>排序</span><span>事件内容：</span><span>开始时间：</span><span>结束时间：</span><span>是否完成：</span><span>操作</span></li>
+                <li v-for="(item,index) in items" :class="{'finished':item.finished==true}"><span>{{index+1}}</span><span :class="{'finishedContent':item.finished==true}">{{item.label}}</span><span>{{item.startTime}}</span><span>{{item.finishedTime}}</span><span @click="finishedChange(item)" :class="{'finished':item.finished==true}">{{isFinished(item)}}</span><span @click="deleteThisItem(index)">X</span></li>
+            </ul>
+        </div>
+        <div class="clear_listbtn" onclick="todoListWarn.removeDetail()">
+            移除所有项目
+        </div>
+        <div class="if_clearwarn">
+            <div class="clearlist_head">
+                <span onclick="todoListWarn.closeTodoListWarn()">X</span>
+            </div>
+            <p>真的要清除所有数据么？一旦清除就什么记录都没有咯，而且也找不来了哟。</p>
+            <div class="clearlist_footer">
+                <span onclick="todoListWarn.removeAllList()">狠心确认</span>
+                <span onclick="todoListWarn.closeTodoListWarn()">我再想想</span>
+            </div>
+        </div>
+        <div class="clear_finishedlistbtn" onclick="todoListFinishedWarn.removeDetail()">
+            移除已完成项目
+        </div>
+        <div class="if_finishedclearwarn">
+            <div class="clearlist_head">
+                <span onclick="todoListFinishedWarn.closeTodoListWarn()">X</span>
+            </div>
+            <p>真的要清除所有数据么？一旦清除就什么记录都没有咯，而且也找不来了哟。</p>
+            <div class="clearlist_footer">
+                <span onclick="todoListFinishedWarn.removeAllList()">狠心确认</span>
+                <span onclick="todoListFinishedWarn.closeTodoListWarn()">我再想想</span>
+            </div>
+        </div>
+        <div class="modalcover"></div>
+    </div>
+    <script type="text/javascript" src="js/vue2.0.js"></script>
+    <script type="text/javascript">
+    var demo = new Vue({
+        el: "#container",
+        data: {
+            newitem: "",
+            items: localStorage.todoList == undefined ? [] : JSON.parse(localStorage.todoList)
+        },
+        methods: {
+            isFinished: function(item) {
+                if (item.finished) {
+                    return "Finished"
+                } else {
+                    return "unFinished"
+                }
+            },
+            addNewItem: function() {
+                if (this.newitem.trim() != "") {
+                    this.items.unshift({
+                        label: this.newitem.trim(),
+                        startTime: this.getTimeNow(),
+                        finished: false
+                    })
+                    this.newitem = "";
+                    if (localStorage.todoList == undefined) {
+                        localStorage.todoList = JSON.stringify(this.items);
+                    } else {
+                        localStorage.todoList = JSON.stringify(this.items);
+                    }
+                }
+            },
+            getTimeNow: function() {
+                var time = new Date();
+                var year = time.getFullYear();
+                var month = time.getMonth() + 1 < 10 ? "0" + time.getMonth() + 1 : time.getMonth() + 1;
+                var date = time.getDate() < 10 ? "0" + time.getDate() : time.getDate();
+                var hour = time.getHours() < 10 ? "0" + time.getHours() : time.getHours();
+                var minute = time.getMinutes() < 10 ? "0" + time.getMinutes() : time.getMinutes();
+                var second = time.getSeconds() < 10 ? "0" + time.getSeconds() : time.getSeconds();
+                var startTime = year + '-' + month + '-' + date + ' ' + hour + ':' + minute + ':' + second;
+                return startTime;
+            },
+            finishedChange: function(item) {
+                item.finished = !item.finished;
+                if (item.finished) {
+                    item.finishedTime = this.getTimeNow();
+                } else {
+                    item.finishedTime = "";
+                }
+                localStorage.todoList = JSON.stringify(this.items);
+            },
+            deleteThisItem: function(index) {
+                this.items.splice(index, 1);
+                localStorage.todoList = JSON.stringify(this.items);
+            }
+        }
+    })
+    var all_modal=document.querySelector(".if_clearwarn");
+    var modal_popup=document.querySelector(".modalcover");
+    var finished_modal=document.querySelector(".if_finishedclearwarn");
+    var todoListWarn={
+        closeTodoListWarn:function(){
+            all_modal.style.display="none";
+            modal_popup.style.display="none";
+        },
+        removeAllList:function(){
+            all_modal.style.display="none";
+            modal_popup.style.display="none";
+            demo.items=[];
+            localStorage.todoList=JSON.stringify(demo.items);
+        },
+        removeDetail:function(){
+            all_modal.style.display="block";
+            modal_popup.style.display="block";
+        }
+    }
+    var todoListFinishedWarn={
+        closeTodoListWarn:function(){
+            finished_modal.style.display="none";
+            modal_popup.style.display="none";
+        },
+        removeAllList:function(){
+            for(var i=demo.items.length-1;i>=0;i--){
+                if(demo.items[i].finished){
+                    demo.items.splice(i,1);
+                }
+            }
+            finished_modal.style.display="none";
+            modal_popup.style.display="none";
+            localStorage.todoList= JSON.stringify(demo.items);
+        },
+        removeDetail:function(){
+            finished_modal.style.display="block";
+            modal_popup.style.display="block";
+        }
+    }
+    </script>
+</body>
+
+</html>

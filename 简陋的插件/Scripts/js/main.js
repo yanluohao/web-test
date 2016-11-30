@@ -12,7 +12,7 @@
                 alert("请输入正确的参数");
                 return false;
             }
-            var multipleIndustryClickIndex = $(this).index();
+            var multipleIndustryClickIndex = $(this).index(".multipleIndustryClick");
             multipleIndustryIndex = multipleIndustryClickIndex;
             industryGetPopupBody();
             industryGetAllInformation();

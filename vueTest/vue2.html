@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="style/mainVue.css">
+	<script type="text/javascript" src="js/vue2.0.js"></script>
+</head>
+<body>
+	<!-- 以下内容都是在Vue2.0的环境下测试 -->
+	<!-- 动画过渡部分 在Vue2.0中有效，在1.0版本中存在报错-->
+	<div id="transitionDemo">
+	    <button v-on:click="show=!show">Toggle</button>
+	    <transition name="fade">
+	        <p v-if="show">Test Content</p>
+	    </transition>  
+	</div>
+	<!-- 这是一个带方向位移的css过渡例子 -->
+	<div id="transitionDemo2">
+	    <button v-on:click="show=!show">Toggle</button>
+	    <transition name="slide-fade">
+	        <p v-if="show">slideTest</p>
+	    </transition>
+	</div>
+	<div id="animationDemo">
+	    <button v-on:click="show=!show">ToggleAnimation</button>
+	    <transition name="bounce">
+	        <p v-if="show">bounceAnimationTest</p>
+	    </transition>
+	</div>
+	<div id="list-demo" class="demo">
+		<button v-on:click="addNum">Add</button>
+		<button v-on:click="removeNum">Remove</button>
+		<transition-group name="list" tag="div">
+		<span v-for="item in items" class="list-item" v-bind:key="item">{{item}}</span>
+		</transition-group>
+	</div>
+	<div id="modelTest">
+		<input type="text" v-model="msg">
+		<p>{{msg}}</p>
+		<input type="text" v-focus>
+		<div v-demo="{color:'blue',name:'secret'}"></div>
+	</div>
+	<p>21111111111111111111111</p>
+	<script type="text/javascript" src="js/vueTest2.js"></script>
+</body>
+</html>

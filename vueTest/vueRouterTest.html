@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+    <script type="text/javascript" src="js/vue2.0.js"></script>
+    <script type="text/javascript" src="js/vue-router@2.0.1.js"></script>
+    <script type="text/javascript" src="../jquery.js"></script>
+</head>
+
+<body>
+    <div id="appTest">
+        <h1>it's a test</h1>
+        <p>
+            <router-link to="/firstpage">go to firstPage</router-link>
+            <router-link to="/secondpage">go to secondPage</router-link>
+        </p>
+        <router-view></router-view>
+    </div>
+    <div id="appTest2">
+    	<p>
+    		<router-link to="/user/num/name/num2">num</router-link>
+    		<router-link to="/user/text/name/text2">text</router-link>
+    	</p>
+    	<router-view></router-view>
+    </div>
+    <div id="appTest3">
+    <p>
+    	<router-link to="/user/z">go homepage</router-link>
+    	<router-link to="/user/z/profile">go to profile</router-link>
+    	<router-link to="/user/z/card">go to card</router-link>
+    </p>
+    	<router-view></router-view>
+    </div>
+    <button class="forward">Forward</button>
+    <button class="back">Back</button>
+    <script type="text/javascript">
+        $(".back").on("click",function(){
+            window.history.back();
+        })
+        $(".forward").on("click",function(){
+            window.history.forward();
+        })
+    </script>
+    <script type="text/javascript" src="js/vueRouter.js"></script>
+</body>
+
+</html>

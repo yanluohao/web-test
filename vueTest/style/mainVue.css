@@ -1,0 +1,97 @@
+body,
+button,
+input {
+    font-family: "SimHei";
+    font-size: 18px;
+}
+a{
+    text-decoration: none;
+    color: #000;
+}
+a:hover,a:visited{
+    text-decoration: none;
+    color: #000;
+}
+
+.expand-transition{
+	transition:all .3s ease;
+	height: 40px;
+	padding: 10px;
+	background: #ccc;
+}
+
+.expand-enter,.expand-leave{
+	height: 0px;
+	padding: 0 10px;
+	opacity: 0;
+}
+
+.fade-enter-active,.fade-leave-active{
+	transition: opacity .5s;
+}
+
+.fade-enter,.fade-leave-active{
+	opacity: 0;
+}
+
+.slide-fade-enter-active{
+	transition: all .3s;
+}
+
+.slide-fade-leave-active{
+	transition:all .8s ease;
+}
+
+.slide-fade-enter,.slide-fade-leave-active{
+	opacity: 0;
+	padding:10px 0 0 10px;
+}
+
+/*bounce动画部分样式*/
+.bounce-enter-active{
+	animation: bounce-in .5s;
+}
+
+.bounce-leave-active{
+	-webkit-animation: bounce-out .8s;
+	-o-animation: bounce-out .8s;
+	animation: bounce-out .8s;
+}
+
+@keyframes bounce-in{
+	0%{
+		transform:scale(0);
+	}
+	50%{
+		transform: scale(1.5);
+	}
+	100%{
+		transform: scale(1);
+	}
+}
+
+@keyframes bounce-out{
+	0%{
+		transform: scale(1);
+	}
+	50%{
+		transform: scale(1.5);
+	}
+	100%{
+		transform: scale(0);
+	}
+}
+
+.list-item{
+	display: inline-block;
+	margin:10px 10px 0 0;
+}
+
+.list-enter-active,.list-leave-active{
+	transition:all .7s;
+}
+
+.list-leave-active,.list-enter{
+	opacity: 0;
+	transform: translateY(30px);
+}

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="style/mainVue.css">
+    <script type="text/javascript" src="js/vue.js"></script>
+    <style type="text/css">
+    .fade-transition{
+    transition: opacity .5s ease;
+    }
+
+    .fade-enter,.fade-leave{
+    opacity:0;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        {{message}}
+        <input type="text" v-model="message">
+        <ul>
+            <li v-for="name in names">{{name.bookName}}</li>
+        </ul>
+        <button v-on:click="reverseMessage">点击打乱顺序</button>
+    </div>
+    <div id="testApp">
+        <input type="text" v-model="newsomeTest" v-on:keyup.enter="addTest">
+        <ul>
+            <li v-for="test in tests"><span>{{test.text}}</span>
+                <button v-on:click="removeMessage(index)">X</button>
+            </li>
+        </ul>
+    </div>
+    <div id="testexample">
+        Hello{{name}}!
+    </div>
+    <div id="addExample">
+        <span>{{a}}</span>
+        <span>{{b}}</span> a={{a}},b={{b}}
+    </div>
+    <div id="computeModule">
+        firstname={{firstname}}, lastname={{lastname}}
+        <br> {{fullname}}
+    </div>
+    <div id="classTest" v-bind:class="{'classA':A,'classB':B}">
+        <button v-on:click="changeClass">改变div的类</button>
+        <div v-bind:class="classObject"></div>
+        <template v-if="ok">
+            <!-- v-if当其值为true时保存在DOM中才会渲染,切换多个元素的时候用<template>元素当作包装元素,而v-show的使用只是将display的值做了修改,DOM中一直存在该节点。 -->
+            <h1>Title</h1>
+            <p>Paragraph 1</p>
+            <p>Paragraph 2</p>
+        </template>
+        <div v-show="no">show Myself</div>
+        <div v-if="male==true">
+            Hello Mr
+        </div>
+        <div v-else>
+            <!-- v-else紧跟v-if表示在除开if情况下的显示情况 -->
+            Hello Mrs
+        </div>
+        <p v-show="condition">这是一个组件</p>
+        <p v-show="!condition">这可能也是一个组件</p>
+        <p v-show="showTest">这是一个组件</p>
+        <p v-else>这可能也是一个组件</p>
+    </div>
+    <div class="forTest">
+        <li v-for="item in items" track-by="message">{{$index+1}}-{{item.message}}</li>
+        <li v-for="(index,item) in items">{{index+1}}-{{item.message}}</li>
+        <li v-for="item of items">{{$index+1}}-{{item.message}}</li>
+        <!-- 渲染一个包含多个元素的快使用<template>标签 -->
+        <template v-for="item of items">
+            <li>{{item.message}}</li>
+            <li>__</li>
+        </template>
+    </div>
+    <br>
+    <div id="shoppingCar">
+        <div class="itemList" v-for="food in foods">
+            <span>{{food.name}}</span>
+            <button v-on:click="reduceNum($index)">-</button><span>{{food.num}}件</span>
+            <button v-on:click="addNum($index)">+</button><span>单价是：{{food.price}}</span>
+        </div>
+        <br><span>总价是：<span>{{count}}</span></span>
+    </div>
+    <!-- 多个勾选框，绑定到同一个数组： -->
+    <div id="modelTest">
+        <input type="checkbox" v-model="checkedNames" value="Jack">
+        <label for="">Jack</label>
+        <input type="checkbox" v-model="checkedNames" value="Mike">
+        <label for="">Mike</label>
+        <input type="checkbox" v-model="checkedNames" value="Roy">
+        <label for="">Roy</label>
+        <br>
+        <span>Checked names:{{checkedNames|json}}</span>
+        <br>
+        <input type="radio" v-model="pickNames" value="One">
+        <label for="">One</label>
+        <input type="radio" v-model="pickNames" value="Two">
+        <label for="">Two</label>
+        <br>
+        <span>Picked:{{pickNames}}</span>
+        <br>
+        <select v-model="choice">
+            <option selected>1</option>
+            <option>2</option>
+            <option>3</option>
+        </select>
+        <span>被选中的是:{{choice}}</span>
+        <br>
+        <select name="" id="" v-model="selected">
+            <option v-for="option in options" v-bind:value="option.value">
+                {{option.text}}
+            </option>
+        </select>
+        <br>
+        <span>你选择了：{{selected}}</span>
+        <br>
+        <!-- 完成输入后更新 -->
+        <input type="text" v-model="msg" lazy>
+        <br>
+        <span>你的输入：{{msg}}</span>
+        <br>
+        <!-- 延时500ms -->
+        <input type="text" v-model="msg2" debounce="500">
+        <br>
+        <span>你输入了：{{msg2}}</span>
+    </div>
+    <div id="transition">
+        <div v-if="show" transition="expand">hello</div>
+    </div>
+    <!-- 组件复用模块 -->
+    <div id="exampleComponent">
+        <first-component></first-component>
+        <!-- <parent></parent> -->
+        <!-- 注册语法糖 -->
+        <quick-component></quick-component>
+        <!-- <parent-component></parent-component> -->
+        <child msg="hello Vue"></child>
+        <!-- 动态绑定props的值 -->
+        <input type="text" v-model="parentMsg">
+        <br>
+        <child v-bind:msg="parentMsg"></child>
+        <myslot-component>
+            <p slot="cpu">至强e3</p>
+            <p>什么都没有</p>
+            <p slot="keyboard">双飞燕</p>
+            <p slot="gpu">GTX 1080</p>
+            <p slot="memory">三星256G固态硬盘</p>
+        </myslot-component>
+    </div>
+
+    <!-- 创建动态组件 -->
+    <div id="testContainer">
+      <component :is="currentView" keep-alive transition="fade" transition-mode="out-in"></component>
+      <a href="javascript:;" v-on:click="currentView='manage-posts'">切换到展示栏</a>
+      <a href="javascript:;" v-on:click="currentView='create-posts'">切换到添加栏</a>
+      <async-example></async-example>
+    </div>
+    <template id="manage-template">
+        <div>
+            <h1 style="font-size:26px">Manage Posts</h1>
+            <a href="#" v-for="post in posts" style="display:block;width:100%;height:20px;float:left">{{post}}</a>
+        </div>
+    </template>
+    <template id="create-template">
+        <h1 style="font-size:26px">Create Posts</h1>
+        <div>Post Title</div>
+        <input type="text" placeholder="Post Title">
+        <div>Post Body</div>
+        <textarea  id="" cols="30" rows="10"></textarea>
+    </template>
+    <script type="text/javascript" src="js/vueTest.js"></script>
+    <script type="text/javascript">
+    //简易购物列表
+    new Vue({
+        el: "#shoppingCar",
+        data: {
+            foods: [{
+                name: "iphone7",
+                num: 1,
+                price: 100
+            }, {
+                name: "sumsung galaxy7",
+                num: 1,
+                price: 200
+            }, {
+                name: "oppo R7",
+                num: 1,
+                price: 300
+            }]
+        },
+        computed: {
+            count: function() {
+                var count = 0;
+                for (var i = 0; i < this.foods.length; i++) {
+                    var self = this.foods[i];
+                    count += self.num * self.price;
+                }
+                return count;
+            }
+        },
+        methods: {
+            addNum: function($index) {
+                var self = this.foods[$index];
+                return self.num++;
+            },
+            reduceNum: function($index) {
+                var self = this.foods[$index];
+                if (self.num <= 1) {
+                    return false;
+                }
+                self.num--;
+            }
+        }
+    })
+    </script>
+</body>
+
+</html>
