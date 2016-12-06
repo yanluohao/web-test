@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>swiper的使用</title>
+    <link rel="stylesheet" href="style/swiper.min.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/swiper.min.js"></script>
+    <style type="text/css">
+    * {
+        padding: 0;
+        margin: 0;
+    }
+    body{
+    	font-family: "微软雅黑";
+    }
+
+    #swiper-slide1 {
+        background: url(images/banner1.jpg) no-repeat center;
+        background-size: cover;
+    }
+    
+    #swiper-slide2 {
+        background: url(images/banner2.jpg) no-repeat center;
+        background-size: cover;
+    }
+    
+    #swiper-slide3 {
+        background: url(images/banner3.jpg) no-repeat center;
+        background-size: cover;
+    }
+    #banner{
+    	width: 100%;
+    	height: 500px;
+    	position: relative;
+    	overflow: hidden;
+    }
+    .swiper-slide{
+    	width: 100%;
+    	height: 500px;
+    }
+    .infotip{
+    	width: 90%;
+    	top:25%;
+    	position: relative;
+    	margin:0 auto;
+    	text-align: center;
+    	z-index: 10;
+    }
+    .infotip h2{
+    	font-size: 36px;
+    	color: #fff;
+    }
+    .infotip p{
+    	margin:20px auto;
+    }
+    .arrow{
+    	display: block;
+    	position: absolute;
+    	top:50%;
+    	transform: translate(0,-50%);
+    	width: 25px;
+    	height: 43px;
+    	z-index: 11;
+    }
+    .arrow-left{
+    	background: url(images/icon-banner-left.png) no-repeat;
+    	left: 20px;
+    }
+    .arrow-right{
+    	background: url(images/icon-banner-right.png) no-repeat;
+    	right: 20px;
+    }
+    @media (max-width: 415px){
+    	.arrow{
+    		display: none;
+    	}
+    	.swiper-slide,
+    	#banner{
+    		height: 400px;
+    	}
+    }
+    </style>
+</head>
+
+<body>
+    <div id="banner">
+        <a href="#" class="arrow arrow-left"></a>
+        <a href="#" class="arrow arrow-right"></a>
+        <div class="swiper-container" id="demo-banner">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" id="swiper-slide1"></div>
+                <div class="swiper-slide" id="swiper-slide2">
+                    <div class="infotip">
+                        <div data-swiper-parallax="-3500">
+                            <h2>“北京+上海”双中心猎头</h2>
+                            <p>双城多点，双向拓展，一轴两带，南北生态</p>
+                            <a>立即体验</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide" id="swiper-slide3"></div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    //banner切换
+    var mySwiper = new Swiper('#demo-banner', {
+        loop: true,
+        autoplay: 5000,
+        speed: 1000,
+        pagination: '#bannerpagination', //分页器容器
+        paginationClickable: true, //设置为true时，点击分页器的指示点分页器会控制Swiper切换
+        grabCursor: true, //为true时，鼠标覆盖Swiper时指针会变成手掌形状
+        nextButton: '.arrow-right',
+        prevButton: '.arrow-left',
+        parallax: true,
+        longSwipesRatio: 0.2, //触发swiper所需要的最小拖动距离比例   最大0.5
+        //autoplayDisableOnInteraction:false,   //设置为false，用户操作swiper之后自动切换不会停止
+    });
+    $("#demo-banner").mouseover(function() {
+        mySwiper.stopAutoplay();
+    });
+    $("#demo-banner").mouseout(function() {
+        mySwiper.startAutoplay();
+    });
+    </script>
+</body>
+
+</html>
