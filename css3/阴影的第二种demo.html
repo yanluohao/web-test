@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+    <style type="text/css">
+    body,a{
+      font-family: "simhei";
+      color: rgba(0,0,0,.7);
+    }
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    .comWidth{
+      width: 1200px;
+      margin:0 auto;
+    }
+    .case{
+      display: block;
+      float: left;
+      width: 228px;
+      height: 228px;
+      margin:10px 15px 0 0;
+      position: relative;
+      box-shadow: 1px 1px 2px 1px #c9c9c9;
+      overflow: hidden;
+    }
+    .case:nth-of-type(5n){
+      margin-right: 0;
+    }
+    .detail{
+      width: 100%;
+      height: 100%;
+      padding: 10px;
+      background: rgba(0,0,0,.25);
+      top:228px;
+      left: 0;
+      position: absolute;
+      box-sizing: border-box;
+      transition: all .5s; 
+      text-align: center;
+      color: #fff;
+    }
+    .case:hover .detail{
+      top: 0;
+    }
+    .detail a{
+      color: #fff;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="comWidth">
+      <a href="" class="case" style="background:url(images/html.png) no-repeat;background-size:100% 100%;">
+        <div class="detail">
+          <strong>HTML</strong>
+          <p>超级文本标记语言是标准通用标记语言下的一个应用，也是一种规范，一种标准，它通过标记符号来标记要显示的网页中的各个部分。网页文件本身是一种文本文件，通过在文本文件中添加标记符，可以告诉浏览器如何显示其中的内容（如：文字如何处理，画面如何安排，图片如何显示等）。</p>
+        </div>
+      </a>
+      <a href="" class="case" style="background:url(images/css.png) no-repeat;background-size:100% 100%;"></a>
+      <a href="" class="case" style="background:url(images/javascript.png) no-repeat;background-size:100% 100%;"></a>
+      <a href="" class="case" style="background:url(images/express.png) no-repeat;background-size:100% 100%;"></a>
+      <a href="" class="case" style="background:url(images/ecmascript2015.png) no-repeat;background-size:100% 100%;"></a>
+      <a href="" class="case" style="background:url(images/html5.png) no-repeat;background-size:100% 100%;"></a>
+    </div>
+</body>
+
+</html>
