@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+    <style type="text/css">
+    .uplaodContainer {
+        width: 300px;
+        height: 200px;
+    }
+    
+    .productPic {
+        width: 280px;
+        height: 120px;
+        border: 1px dashed #d2d2d2;
+        background: url(/Content/Style/Orange/Images/upload-default.png) no-repeat center center;
+    }
+    
+    .productPicker {
+        margin-top: 20px;
+        text-align: center;
+        display: none;
+    }
+    
+    .productBtn {
+        width: 150px;
+        height: 40px;
+        line-height: 40px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        background: #f7f7f7;
+        text-align: center;
+        cursor: pointer;
+        margin: 20px auto 0;
+    }
+    .imgContainer{
+        width: 200px;
+        height: 100px;
+        margin:10px auto;
+        position: relative;
+    }
+    .fixtopBar{
+        height: 30px;
+        line-height: 30px;
+        color: #fff;
+        background: rgba(0,0,0,.5);
+        width: 100%;
+        position: absolute;
+        display: none;
+    }
+    .imgContainer:hover .fixtopBar{
+        display: block;
+    }
+    .fixtopBar>span{
+        cursor: pointer;
+        display: block;
+        float: right;
+        width: 40px;
+        height: 100%;
+        text-align: center;
+    }
+    </style>
+    <script type="text/javascript" src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="uplaodContainer" class="uplaodContainer">
+        <div id="productPic" class="productPic"></div>
+        <div id="productBtn" class="productBtn">上传&nbsp;产品图片</div>
+        <input type="file" accept="image/gif,image/vnd.dwg,image/vnd.dxf,image/gif,image/jp2,image/jpeg,image/png,image/vnd.svf,image/tiff," capture="camera" value="上传&nbsp;产品图片" id="productPicker" class="productPicker">
+    </div>
+    <script type="text/javascript">
+    addNewImage("#productBtn", "#productPic");
+
+    function addNewImage(btn, container) {
+        var fileInput = $(btn).next("input");
+        var fileContainer = $(btn).parent().find(".productPic");
+        $(btn).on("click", function(e) {
+            e.preventDefault();
+            fileInput.trigger("click");
+        })
+        fileInput.on("change", function(e) {
+            var files = this.files;
+            var reader = new FileReader();
+            reader.readAsDataURL(files[0]);
+            reader.onload = function(e) {
+                var mb = (e.total / 1024) / 1024;
+                if (mb >= 5) {
+                    alert("图片大小超出5M");
+                    return;
+                } else if (fileContainer.children(".imgContainer").length >= 1) {
+                    alert("超出上传图片限制");
+                    return;
+                }
+                var img = '<div class="imgContainer"><div class="fixtopBar"><span>删除</span></div><img src="' + this.result + '" style="width:100%;margin:0 auto;height:100%;"></div>';
+                $(container).append(img);
+                $(container).css("background", "none");
+            }
+        })
+    }
+
+    // 点击图片上的删除事件
+    $("body").on("click",".fixtopBar>span",function(){
+        var imgBox=$(this).parents(".imgContainer");
+        imgBox.parents(".uplaodContainer").children("input").val("");
+        imgBox.remove();
+    })
+    </script>
+</body>
+
+</html>

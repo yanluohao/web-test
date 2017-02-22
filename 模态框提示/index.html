@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="Content/modal.css">
+    <script type="text/javascript" src="Scripts/jquery.js"></script>
+    <script type="text/javascript" src="Scripts/modal.js"></script>
+</head>
+
+<body>
+    <button id="test">点击</button>
+    <div id="test2">点击</div>
+    <div>22222</div>
+    <div>1111</div>
+    <script type="text/javascript">
+        $("#test").confirmModal({
+            info:"客户基本资料中的公司性质、公司行业、公司地址未填写完整，请先填写完整！",
+            confirm:demo
+        });
+        function demo(){
+            $("body").append("<div>1111</div>");
+        }
+        $("#test2").tipModal({
+            info:"提示内容"
+        });
+    </script>
+</body>
+
+</html>

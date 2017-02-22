@@ -1,0 +1,91 @@
+    .clearfix:after {
+        content: "";
+        display: block;
+        clear: both;
+        visibility: hidden;
+    }
+    
+    .popcover {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        left: 0;
+        top: 0;
+        background: rgba(0, 0, 0, .5);
+    }
+    
+    .modal-confirmModal,
+    .modal-tipModal {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 400px;
+        background: #fff;
+        font-family: "Microsoft Yahei"; 
+        border-radius: 10px;
+    }
+    .confirmModal-head,
+    .tipModal-head{
+        height: 40px;
+        line-height: 40px;
+        background: #ccc;
+        border-radius: 10px 10px 0 0;
+    }
+    .confirmModal-head span,
+    .tipModal-head span{
+        display: block;
+        float: right;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+    .confirmModal-foot,
+    .tipModal-foot{
+        border-radius:0 0 10px 10px;
+    }
+
+    .confirmModal-content,
+    .tipModal-content{
+        width: 80%;
+        margin: 0 auto;
+        text-align: left;
+        padding: 20px 0;
+    }
+    
+    .confirmModal-btns,
+    .tipModal-btns {
+        margin-left: 50%;
+        transform: translateX(-50%);
+        padding: 10px 0;
+    }
+    
+    .confirmModal-btns,
+    .confirmModal-sure,
+    .confirmModal-cancel,
+    .tipModal-btns,
+    .tipModal-sure,
+    .tipModal-cancel  {
+        float: left;
+    }
+    
+    .confirmModal-sure,
+    .confirmModal-cancel,
+    .tipModal-sure,
+    .tipModal-cancel {
+        padding: 5px 10px;
+        border-radius: 2px;
+        cursor:pointer;
+    }
+    
+    .confirmModal-sure,
+    .tipModal-sure {
+        background: #ff6b00;
+        color: #fff;
+    }
+    
+    .confirmModal-cancel,
+    .tipModal-cancel {
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        margin-left: 50px;
+    }
