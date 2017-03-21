@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+    <span id="days"></span>天<span id="hours"></span>小时<span id="minutes"></span>分<span id="seconds"></span>秒
+    <script type="text/javascript">
+        function countDown(year,month,date,hour,minute,second){
+            var today=new Date();
+            year_now=today.getFullYear();
+            month_now=today.getMonth()+1;
+            date_now=today.getDate();
+            hour_now=today.getHours();
+            minute_now=today.getMinutes();
+            second_now=today.getSeconds();
+            countDays=0;
+            countHours=0;
+            countMinutes=0;
+            countSeconds=0;
+            const is_leapYear=year_now%4==0&&year_now%100!=0||year_now%400==0?1:0;
+            const monthDays=[31,28+is_leapYear,31,30,31,30,31,31,30,31,30,31];
+            days_box=document.querySelector("#days");
+            hours_box=document.querySelector("#hours");
+            minutes_box=document.querySelector("#minutes");
+            seconds_box=document.querySelector("#seconds");
+            for(let i=month_now;i<month;i++){
+                countDays+=monthDays[i-1];
+            }
+            //去除当前日期
+            countDays=countDays-date_now+date;
+            if(second-second_now>0){
+                countSeconds=second-second_now;
+            }
+            else{
+                countSeconds=second+60-second_now;
+                countMinutes-=1;
+            }
+            if(minute-minute_now>0){
+                countMinutes=minute-minute_now;
+            }
+            else{
+                countMinutes=minute+60-minute_now;
+                countHours-=1;
+            }
+            if(hour-hour_now>0){
+                countHours=hour-hour_now;
+            }
+            else{
+                countHours=hour+24-hour_now;
+                countDays-=1;
+            }
+            countDays=countDays<10?"0"+countDays:countDays;
+            countHours=countHours<10?"0"+countHours:countHours;
+            countMinutes=countMinutes<10?"0"+countMinutes:countMinutes;
+            countSeconds=countSeconds<10?"0"+countSeconds:countSeconds;
+            days_box.innerHTML=countDays;
+            hours_box.innerHTML=countHours;
+            minutes_box.innerHTML=countMinutes;
+            seconds_box.innerHTML=countSeconds;
+        }
+        var testHour=10;
+        countDown(2017,2,28,testHour,30,51);
+        setInterval('countDown(2017,2,28,testHour,30,51)',1000);
+    </script>
+</body>
+</html>

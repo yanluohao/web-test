@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+    <script type="text/javascript">
+        function task_LazyMan(name){
+            var _self=this;
+            this.tasks=[];
+            var fn=function(){
+                document.write("Hi!This is "+name+"<br>");
+                _self.next();
+            }
+            this.tasks.push(fn);
+            setTimeout(function(){
+                _self.next();
+            },0);
+            return this;
+        }
+        task_LazyMan.prototype.next=function(){
+            var fn=this.tasks.shift();
+            fn&&fn();
+        }
+        task_LazyMan.prototype.sleep=function(time){
+            var _self=this;
+            var fn=function(){
+                setTimeout(function(){
+                    document.write('Wake up after '+time+' 秒<br>');
+                    _self.next();  
+                },time*1000);
+            }
+            this.tasks.push(fn);
+            return this;
+        }
+        task_LazyMan.prototype.eat=function(food){
+            var _self=this;
+            var fn=function(){
+                document.write("Eat "+food+"<br>");
+                _self.next();
+            }
+            this.tasks.push(fn);
+            return this;
+        }
+        task_LazyMan.prototype.doFirst=function(task){
+            var _self=this;
+            var fn=function(){
+                document.write("I have to "+task+" first<br>");
+                setTimeout(function(){
+                    _self.next();
+                },500);
+            }
+            this.tasks.unshift(fn);
+            return this;
+        }
+        function LazyMan(name){
+            return new task_LazyMan(name);
+        }
+        // LazyMan('hack').sleep(2).eat('shit').doFirst('try');
+        LazyMan("Roy").eat('dinner').eat('breakfast').doFirst('wash');
+    </script>
+</body>
+</html>
