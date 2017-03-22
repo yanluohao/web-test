@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+    <style type="text/css">
+/*     -webkit-line-clamp设置块元素包含的文本行数；
+    display: -webkit-box设置块元素的布局为伸缩布局；
+    -webkit-box-orient设置伸缩项的布局方向；
+    text-overflow: ellipsis;则表示超出盒子的部分使用省略号表示。 */
+        .simple-ellipsis {
+            width: 100px;
+            overflow: hidden;
+            display: -webkit-box;
+            display: box;
+            -webkit-line-clamp: 2;  
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            box-orient: vertical;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <div class="simple-ellipsis">
+        测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+    </div>
+</body>
+</html>
