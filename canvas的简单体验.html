@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .content{
+            vertical-align: middle;
+            font-size: 0;
+        }
+        .half{
+            display: inline-block;
+            width: 50%;
+            text-align: center;
+        }
+        .half .demo,
+        .half canvas{
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <div class="half">
+            <img src="" alt="" class="demo">
+        </div>
+        <div class="half">
+            <canvas id="canvas"></canvas>
+        </div>
+    </div>
+    <button id="inverse">反色</button>
+    <button id="grey">灰度</button>
+    <button id="black">黑白</button>
+    <button id="old">怀旧</button>
+    <button id="back">还原</button>
+    <button id="save">保存为图片</button>
+    <div id="newImg"></div>
+    <script type="text/javascript">
+    window.onload = () => {
+        const canvas = document.querySelector('#canvas');
+        const ctx = canvas.getContext('2d');
+        class PS {
+            constructor(img) {
+                this.img = img;
+                this.width = img.width;
+                this.height = img.height;
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);
+                this.imgData = ctx.getImageData(0, 0, this.width, this.height);
+                // console.log(this.imgData.data)
+            }
+            getImgInfo() {
+                    return this.imgData;
+                }
+            //反色滤镜
+            inverseImg() {
+                let imgData = this.getImgInfo();
+                let data = imgData.data; //获取的data为数组，以四个值为一个像素点。对应的四位为rgba;
+                for (let i = 0, len = data.length; i < len; i += 4) {
+                    data[i] = 255 - data[i];
+                    data[i + 1] = 255 - data[i + 1];
+                    data[i + 2] = 255 - data[i + 2];
+                }
+                ctx.putImageData(imgData, 0, 0)
+            }
+            //黑白滤镜 就是把深色的换成黑色，浅色的换成白色
+            blackFilter(){
+                let imgData=this.getImgInfo();
+                let data=imgData.data;
+                for(let i=0,len=data.length;i<len;i+=4){
+                    let avg=(data[i]+data[i+1]+data[i+2])/3;
+                        data[i]=data[i+1]=data[i+2]=avg;
+                }
+                ctx.putImageData(imgData,0,0);
+            }
+            //灰度滤镜
+            greyFilter(){
+                let imgData=this.getImgInfo();
+                let data=imgData.data;
+                for(let i=0,len=data.length;i<len;i+=4){
+                    let grey=data[i] * 0.299 + data[i + 1] * 0.587 + data[i + 2] * 0.144; 
+                    data[i]=data[i+1]=data[i+2]=grey;
+                }
+                ctx.putImageData(imgData,0,0);
+            }
+            //怀旧滤镜
+            // 1.首先对图像重新计算RGB值,计算公式如下：
+            // var dr=.393*r+.769*g+.189*b;
+            // var dg=.349*r+.686*g+.168*b;
+            // var db=.272*r+.534*g+.131*b;
+
+            // 2.对图像计算出来的新的RGB值根据随机权重与旧值混合，权重值公式如下：
+            // var scale=Math.random()*0.5 + 0.5;
+            // 3.混合公式如下：var fr=scale*dr+(1-scale)*r;
+
+            oldFilter(){
+                let imgData=this.getImgInfo();
+                let data=imgData.data;
+                for(let i=0,len=data.length;i<len;i+=4){
+                    let r=data[i];
+                    let g=data[i+1];
+                    let b=data[i+2];
+                    let dr=.393*r+.769*g+.189*b;
+                    let dg=.349*r+.686*g+.168*b;
+                    let db=.272*r+.534*g+.131*b;
+
+                    let scale=Math.random()*.5+0.5;
+                    data[i]=scale*dr+(1-scale)*r;
+                    scale=Math.random()*.5+0.5;
+                    data[i+1]=scale*dg+(1-scale)*g;
+                    scale=Math.random()*.5+0.5;
+                    data[i+2]=scale*db+(1-scale)*b;
+                }
+                ctx.putImageData(imgData,0,0);
+            }
+        }
+        let pic = new Image();
+        let imgSrc = "images/bg_scroll.jpg";
+        pic.src = imgSrc;
+        pic.onload = () => {
+            new PS(pic);
+        }
+        document.querySelector(".demo").src = imgSrc;
+        document.querySelector("#back").onclick=()=>{
+            new PS(pic);
+        }
+        document.querySelector("#inverse").onclick=()=>{
+            new PS(pic).inverseImg();
+        }
+        document.querySelector("#grey").onclick=()=>{
+            new PS(pic).greyFilter();
+        }
+        document.querySelector("#black").onclick=()=>{
+            new PS(pic).blackFilter();
+        }
+        document.querySelector("#old").onclick=()=>{
+            new PS(pic).oldFilter();
+        }
+        document.querySelector("#save").onclick=()=>{
+            let canvas=document.getElementById("canvas");
+            canvas.toBlob((blob)=>{
+                let newImage=document.createElement("img");
+                let url=URL.createObjectURL(blob);
+                newImage.onload=()=>{
+                    URL.revokeObjectURL(url);
+                }
+                if(!document.querySelector("#newImg img")){
+                    newImage.src=url;
+                    document.querySelector("#newImg").appendChild(newImage);
+                }
+                else{
+                    document.querySelector("#newImg img").src=url;
+                }
+            })
+        }
+    }
+    </script>
+</body>
+
+</html>
