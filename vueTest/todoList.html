@@ -199,7 +199,7 @@
             <h2>This is a todoList</h2>
             <input type="text" id="inputbox" placeholder="write something to do" v-model="newitem" @keyup.enter="addNewItem()">
         </div>
-        <span style="color:#ff0000">！当！前！页！面！数！据！来！自！localStorage!切！勿！清！除！缓！存！</span>
+        <!-- <span style="color:#ff0000">！当！前！页！面！数！据！来！自！localStorage!切！勿！清！除！缓！存！</span> -->
         <div class="listContainer">
             <ul>
                 <li><span>排序</span><span>事件内容：</span><span>开始时间：</span><span>结束时间：</span><span>是否完成：</span><span>操作</span></li>
@@ -268,7 +268,7 @@
             getTimeNow: function() {
                 var time = new Date();
                 var year = time.getFullYear();
-                var month = time.getMonth() + 1 < 10 ? "0" + time.getMonth() + 1 : time.getMonth() + 1;
+                var month = time.getMonth() + 1 < 10 ? "0" + (time.getMonth() + 1) : time.getMonth() + 1;
                 var date = time.getDate() < 10 ? "0" + time.getDate() : time.getDate();
                 var hour = time.getHours() < 10 ? "0" + time.getHours() : time.getHours();
                 var minute = time.getMinutes() < 10 ? "0" + time.getMinutes() : time.getMinutes();
