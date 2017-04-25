@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+    <style type="text/css">
+        .test{
+            width: 240px;
+            height: 240px;
+            font-size: 0;
+            transform-style: preserve-3d;
+            position: absolute;
+        }
+        .test span{
+            display: inline-block;
+            width: 60px;
+            height: 240px;
+            opacity: 0;
+            visibility: hidden;
+            background-position: 0 0;
+            transform: rotateY(0);
+            transform-origin:30px 0;
+            transition: all .5s;
+        }
+        .test1 span{
+            background-image: url('images/ecmascript2015.png');
+        }
+        .test2 span{
+            background-image: url('images/css.png');
+        }
+        .test span:nth-of-type(1){
+            transition-delay: 0;
+        }
+        .test span:nth-of-type(2){
+            transition-delay: 100ms;
+        }
+        .test span:nth-of-type(3){
+            transition-delay: 200ms;
+        }
+        .test span:nth-of-type(4){
+            transition-delay: 300ms;
+        }
+        .test.animate span,
+        .test.default span{
+            opacity: 1;
+            visibility: visible;
+            transform: rotateY(360deg);
+        }
+        .modal{
+            width: 240px;
+            height: 240px;
+            position: relative;
+        }
+    </style>
+    <script type="text/javascript" src="jquery.js"></script>
+</head>
+<body>
+    <div class="modal">
+        <div class="test test1 animate">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="test test2">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <div class="changepic">变图</div>
+    <script type="text/javascript">
+        var spans=$(".test1 span");
+        var spans2=$(".test2 span");
+        var pos1="240px 0px";
+            pos2="180px 0px";
+            pos3="120px 0px";
+            pos4="60px 0px";
+            posAttr="background-position";
+            posArr=[pos1,pos2,pos3,pos4];
+            for(var i=0,len=spans.length;i<len;i++){
+                spans.eq(i).css(posAttr,posArr[i]);
+            }
+        // spans.eq(0).css("background-position","0px 240px");
+        // spans.eq(1).css("background-position","0px 180px");
+        // spans.eq(2).css("background-position","0px 120px");
+        // spans.eq(3).css("background-position","0px 60px");
+
+        $(".changepic").hover(function(){
+            $(".test").removeClass("animate");
+            $(".test2").addClass("animate");
+            for(var i=0,len=spans2.length;i<len;i++){
+                spans2.eq(i).css(posAttr,posArr[i]);
+            }
+        },function(){
+            for(var i=0,len=spans.length;i<len;i++){
+                spans.eq(i).css(posAttr,posArr[i]);
+            }
+            $(".test").removeClass("animate");
+            $(".test1").addClass("animate");
+        })
+    </script>
+</body>
+</html>
