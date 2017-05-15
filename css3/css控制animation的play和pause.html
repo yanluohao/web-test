@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+    <style type="text/css">
+    .animation {
+        width: 100px;
+        height: 40px;
+        background: #ff6b00;
+        animation: move 2s linear infinite alternate;
+    }
+    
+    @keyframes move {
+        0% {
+            transform: translate(-100px, 0);
+        }
+        100% {
+            transform: translate(100px, 0);
+        }
+    }
+    .btn2{
+        display: inline-block;
+    }
+    .stop:hover ~ .animation {
+        animation-play-state: paused;
+    }
+    
+    #stop:checked ~ .animation {
+        animation-play-state: paused;
+    }
+/*     a~b选择器的意思：选中所有相同的父元素中位于 a 元素之后的所有 b 元素//w3school的解释有点绕
+    我的理解是：首先a和b必须是同级元素，且b元素必须位于a元素之后，只要达到这两个条件的b选择器都会触发 */
+    #play:checked ~ .animation {
+        animation-play-state: running;
+    }
+
+    .a1~.b1{
+        color: #ff6b00;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="btn stop">stop</div>
+    <div class="animation"></div>
+    <input id="stop" type="radio" name="playAnimation" />
+    <input id="play" type="radio" name="playAnimation" />
+    <div class="box">
+        <!-- label for指向对应id的radio，html基础 -->
+        <label for="stop">
+            <div class="btn2">stop</div>
+        </label>
+        <label for="play">
+            <div class="btn2">play</div>
+        </label>
+    </div>
+    <div class="animation"></div>
+</body>
+
+</html>

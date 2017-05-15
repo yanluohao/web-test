@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+    <style>
+    div {
+        width: 400px;
+        height: 200px;
+        font-size: 80px;
+        text-align: center;
+        line-height: 200px;
+        font-weight: bold;
+        background: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1493353832&di=c063b6b9c89082e96ffee0766112ffec&imgtype=jpg&er=1&src=http%3A%2F%2Fpic2016.5442.com%3A82%2F2016%2F0111%2F07%2F3.jpg%21960.jpg") no-repeat;
+        background-size: 100% 100%;
+    }
+    
+    .before {
+        color: deeppink;
+    }
+    
+    .after {
+        color: transparent;
+        /* 此处必须加-webkit */
+        /* 兼容情况,chrome,以及国内的一系列360，uc，QQ浏览器能够实现 */
+        -webkit-background-clip: text;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="before">Clip</div>
+    <div class="after">Clip</div>
+</body>
+
+</html>
