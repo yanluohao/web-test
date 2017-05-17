@@ -32,14 +32,14 @@ app.post('/email', function(req, res) {
             service: 'qq',
             // port: 80,
             auth: {
-                user: '345072986@qq.com',
-                pass: 'zkbbjhhseqjbbhed'
+                user: 'youremail@qq.com',
+                pass: '123456'
             }
         })
 
         var mailOptions = {
-            from: '345072986@qq.com',
-            to: 'yanluohao@ruyucapital.com',
+            from: 'youremail@qq.com',
+            to: 'toemail@ruyucapital.com',
             subject: '埃摩森戏剧学院邮件',
             html: `姓名：${query.name}<br>
         	联系方式：${query.contact}<br>
