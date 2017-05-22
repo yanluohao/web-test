@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>假设这是俺的富文本编辑器</title>
+    <style>
+    .edit-container {
+        width: 100%;
+        height: 150px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 5px #ccc;
+    }
+    
+    .edit-modal {
+        width: 100%;
+        height: 100%;
+    }
+    </style>
+</head>
+
+<body>
+    <button id="font-bold">加粗</button>
+    <button id="ol-list">有序列表</button>
+    <button id="color">字体变橙色</button>
+    <button id="watermark">添加水印</button>
+    <div class="edit-container">
+        <iframe src="test3.html" frameborder="0" class="edit-modal"></iframe>
+    </div>
+    <script>
+    var editorContainer = document.querySelector(".edit-container");
+    var editorFrame = document.querySelector(".edit-modal").contentWindow;
+    var frameBody = editorFrame.document.querySelector("body");
+    (function() {
+        editorFrame.onload = function() {
+            frameBody.style.height = (editorContainer.clientHeight + "px");
+        }
+    })()
+
+    var bold = document.querySelector("#font-bold");
+    bold.addEventListener("click", function() {
+        // frameBody.style.fontWeight=frameBody.style.fontWeight=="bold"?"normal":"bold";
+        editorFrame.document.execCommand("Bold");
+    }, false)
+
+    var olList = document.querySelector("#ol-list");
+    olList.addEventListener("click", function() {
+        editorFrame.document.execCommand('InsertOrderedList');
+    }, false)
+
+    var color = document.querySelector("#color");
+    color.addEventListener("click", function() {
+        editorFrame.document.execCommand('ForeColor', false, "#ff6b00");
+    }, false)
+
+    var watermark = document.querySelector("#watermark");
+    watermark.addEventListener("click", function() {
+        // editorFrame.document.execCommand('InsertImage', false, "./images/html.png");
+        // var txt = editorFrame.document.getSelection();
+        // console.log(editorFrame.document.getSelection(), txt.toString());
+
+        //给图片添加水印
+        //该措施存在跨域问题。
+        var options={
+            color:"rgba(0,0,0,0.5)",
+            font:"14px microsoft yahei",
+            text:"埃摩森猎头机构",
+            left:110,
+            top:10
+        }
+        var range = editorFrame.getSelection().getRangeAt(0);
+        var container = document.createElement("div");
+        container.appendChild(range.cloneContents());
+        var oldImg = container.querySelector("img");
+        container.style.display = "none";
+        editorFrame.document.body.appendChild(container);
+        console.log(oldImg);
+        if(!oldImg)return false;
+        oldImg.onload = function() {
+            var oldWidth = oldImg.width;
+            var oldHeight = oldImg.height;
+            var canvas = document.createElement("canvas");
+            canvas.style.display = "none";
+            canvas.setAttribute("width", oldWidth);
+            canvas.setAttribute("height", oldHeight);
+            editorFrame.document.body.appendChild(canvas);
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(oldImg, 0, 0);
+            ctx.font = options.font;
+            ctx.fillStyle = options.color;
+            ctx.fillText(options.text, oldWidth - options.left, oldHeight - options.top);
+            var newImg = new Image();
+            newImg.crossOrigin = "Anonymous"; //关键  需要服务器端设置才能配合
+            newImg.src = canvas.toDataURL("image/png");
+            editorFrame.document.execCommand('InsertImage', false, newImg.src);
+        }
+
+    }, false)
+    </script>
+</body>
+
+</html>
