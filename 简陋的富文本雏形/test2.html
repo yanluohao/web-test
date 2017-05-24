@@ -26,78 +26,178 @@
     <button id="ol-list">有序列表</button>
     <button id="color">字体变橙色</button>
     <button id="watermark">添加水印</button>
+    <a href="" download="image.png" style="display: none" id="download"></a>
     <div class="edit-container">
         <iframe src="test3.html" frameborder="0" class="edit-modal"></iframe>
     </div>
+    <script type="text/javascript" src="canvas2image.js"></script>
     <script>
     var editorContainer = document.querySelector(".edit-container");
-    var editorFrame = document.querySelector(".edit-modal").contentWindow;
-    var frameBody = editorFrame.document.querySelector("body");
-    (function() {
-        editorFrame.onload = function() {
-            frameBody.style.height = (editorContainer.clientHeight + "px");
-        }
-    })()
+    window.onload = function() {
+        var editorFrame = document.querySelector(".edit-modal").contentWindow;
+        var frameHtml = editorFrame.document.querySelector("html");
+        var frameBody = editorFrame.document.body;
+        frameHtml.style.height = (editorContainer.clientHeight + "px");
+        frameBody.style.height = (editorContainer.clientHeight + "px");
 
-    var bold = document.querySelector("#font-bold");
-    bold.addEventListener("click", function() {
-        // frameBody.style.fontWeight=frameBody.style.fontWeight=="bold"?"normal":"bold";
-        editorFrame.document.execCommand("Bold");
-    }, false)
 
-    var olList = document.querySelector("#ol-list");
-    olList.addEventListener("click", function() {
-        editorFrame.document.execCommand('InsertOrderedList');
-    }, false)
+        var bold = document.querySelector("#font-bold");
+        bold.addEventListener("click", function() {
+            // frameBody.style.fontWeight=frameBody.style.fontWeight=="bold"?"normal":"bold";
+            editorFrame.document.execCommand("Bold");
+        }, false)
 
-    var color = document.querySelector("#color");
-    color.addEventListener("click", function() {
-        editorFrame.document.execCommand('ForeColor', false, "#ff6b00");
-    }, false)
+        var olList = document.querySelector("#ol-list");
+        olList.addEventListener("click", function() {
+            editorFrame.document.execCommand('InsertOrderedList');
+        }, false)
 
-    var watermark = document.querySelector("#watermark");
-    watermark.addEventListener("click", function() {
-        // editorFrame.document.execCommand('InsertImage', false, "./images/html.png");
-        // var txt = editorFrame.document.getSelection();
-        // console.log(editorFrame.document.getSelection(), txt.toString());
+        var color = document.querySelector("#color");
+        color.addEventListener("click", function() {
+            editorFrame.document.execCommand('ForeColor', false, "#ff6b00");
+        }, false)
 
-        //给图片添加水印
-        //该措施存在跨域问题。
-        var options={
-            color:"rgba(0,0,0,0.5)",
-            font:"14px microsoft yahei",
-            text:"埃摩森猎头机构",
-            left:110,
-            top:10
-        }
-        var range = editorFrame.getSelection().getRangeAt(0);
-        var container = document.createElement("div");
-        container.appendChild(range.cloneContents());
-        var oldImg = container.querySelector("img");
-        container.style.display = "none";
-        editorFrame.document.body.appendChild(container);
-        console.log(oldImg);
-        if(!oldImg)return false;
-        oldImg.onload = function() {
-            var oldWidth = oldImg.width;
-            var oldHeight = oldImg.height;
-            var canvas = document.createElement("canvas");
-            canvas.style.display = "none";
-            canvas.setAttribute("width", oldWidth);
-            canvas.setAttribute("height", oldHeight);
-            editorFrame.document.body.appendChild(canvas);
-            var ctx = canvas.getContext('2d');
-            ctx.drawImage(oldImg, 0, 0);
-            ctx.font = options.font;
-            ctx.fillStyle = options.color;
-            ctx.fillText(options.text, oldWidth - options.left, oldHeight - options.top);
-            var newImg = new Image();
-            newImg.crossOrigin = "Anonymous"; //关键  需要服务器端设置才能配合
-            newImg.src = canvas.toDataURL("image/png");
-            editorFrame.document.execCommand('InsertImage', false, newImg.src);
-        }
+        var watermark = document.querySelector("#watermark");
+        watermark.addEventListener("click", function() {
+            // editorFrame.document.execCommand('InsertImage', false, "./images/html.png");
+            // var txt = editorFrame.document.getSelection();
+            // console.log(editorFrame.document.getSelection(), txt.toString());
 
-    }, false)
+            //给图片添加水印
+            //该措施存在跨域问题。
+            var options = {
+                color: "rgba(0,0,0,0.5)",
+                font: "14px microsoft yahei",
+                text: "埃摩森猎头机构",
+                left: 110,
+                top: 10
+            }
+            var range = editorFrame.getSelection().getRangeAt(0);
+            if (!range) return false;
+            var container = document.createElement("div");
+            container.appendChild(range.cloneContents());
+            var oldImg = container.querySelector("img");
+            container.style.display = "none";
+            editorFrame.document.body.appendChild(container);
+            if (!oldImg) return false;
+            oldImg.onload = function() {
+                var oldWidth = oldImg.width;
+                var oldHeight = oldImg.height;
+                var canvas = document.createElement("canvas");
+                canvas.style.display = "none";
+                canvas.setAttribute("width", oldWidth);
+                canvas.setAttribute("height", oldHeight);
+                editorFrame.document.body.appendChild(canvas);
+                var ctx = canvas.getContext('2d');
+                ctx.drawImage(oldImg, 0, 0);
+                ctx.font = options.font;
+                ctx.fillStyle = options.color;
+                ctx.fillText(options.text, oldWidth - options.left, oldHeight - options.top);
+
+
+                var newImg = new Image();
+                // newImg.crossOrigin = "Anonymous"; //关键  需要服务器端设置才能配合
+                var type = "image/png";
+                newImg.src = canvas.toDataURL(type);
+
+                //canvas下载
+                //该部分确实是提供了图片保存为jpg或png,但是后续的读取路径不知道该如何获取，个人认为读取路径还是要走后台
+                //提取image data中的mime type
+                var _fixType = function(type) {
+                    type = type.toLowerCase().replace(/jpg/i, 'jpeg');
+                    var r = type.match(/png|jpeg|bmp|gif/)[0];
+                    return 'image/' + r;
+                };
+                // 加工image data，替换mime type
+                newImg.src = newImg.src.replace(_fixType(type), 'image/octet-stream');
+
+                var saveFile = function(data, filename) {
+                    var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+                    save_link.href = data;
+                    save_link.download = filename;
+
+                    var event = document.createEvent('MouseEvents');
+                    event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+                    save_link.dispatchEvent(event);
+                };
+                var filename = '\/images\/yanluohao_' + (new Date()).getTime() + '.' + type.split("/")[1];
+                saveFile(newImg.src, filename);
+
+                /*
+                转化为blob的方法暂时取消
+                //base64转化为二进制
+                var bin = atob(newImg.src.split(",")[1]);
+                //创建空的Uint8Array
+                var buffer = new Uint8Array(bin.length);
+                //将图像数据逐字节放入Uint8Array中
+                for (var i = 0; i < bin.length; i++) {
+                    buffer[i] = bin.charCodeAt(i);
+                }
+                //利用Uint8Array创建Blob对象
+                var blob = new Blob([buffer.buffer], {
+                    type: type
+                });
+                newImg.src = window.URL.createObjectURL(blob);
+                */
+
+                editorFrame.document.execCommand('InsertImage', false, newImg.src);
+
+                editorFrame.document.body.removeChild(container);
+                editorFrame.document.body.removeChild(canvas);
+
+            }
+
+        }, false)
+
+        //如果想要实现图片粘贴的时候就能把图片下载到本地，首先需要监听粘贴的事件吧，我猜的
+        //之所以这么做还是因为canvas做修改转为base64时需要图片源是本地服务器的图片
+        editorFrame.document.body.addEventListener("paste", function(e) {
+            if (!(e.clipboardData && e.clipboardData.items)) {
+                return;
+            }
+            var i = 0;
+            imgDownload();
+            function imgDownload() {
+                if (i < e.clipboardData.items.length) {
+                    var item = e.clipboardData.items[i];
+                    if (item.kind === "string") {
+                        item.getAsString(function(str) {
+                            var div = document.createElement("div");
+                            div.innerHTML = str;
+                            var imgs = Array.from(div.querySelectorAll("img"));
+                            var imgPath = [];
+                            imgs.forEach((item) => {
+                                    imgPath.push(item.src);
+                                })
+                                //假装有url咯
+                            // var url = "";
+                            // var ajax = new XMLHttpRequest();
+                            // var ajaxData = JSON.parse(imgPath);
+                            // ajax.open("post", url);
+                            // ajax.onreadystatechange = function() {
+                            //     if (this.readyState != 4) return false;
+                            //     if (this.status == 200) {
+                            //         var res = this.responseText;
+                            //         //对图片重新进行赋予链接
+                            //         for (var j = 0; j < res.length; j++) {
+                            //             imgs[j].src=res[j];
+                            //         }
+                            //     }
+                            // }
+                            // ajax.responseType = "json";
+                            // ajax.setRequestHeader("Accept", "application/json");
+                            // ajax.send(ajaxData);
+                            i++;
+                            imgDownload();
+                        })
+                    }
+                }
+                else{
+                    return false;
+                }
+            }
+        }, false)
+    }
     </script>
 </body>
 
