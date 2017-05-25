@@ -111,7 +111,7 @@
 	<input id="fileImg" type="file" accept="image/gif,image/vnd.dwg,image/vnd.dxf,image/gif,image/jp2,image/jpeg,image/png,image/vnd.svf,image/tiff" />
 	<div class="container">
 		<div class="show-image">
-			<div class="show-container"></div>
+			<!-- <div class="show-container"></div> -->
 		</div>
 		<div class="cover-range">
 			<div class="cover-container">
@@ -194,6 +194,7 @@
 		var leftCover=document.querySelector(".left-cover");
 		var rightCover=document.querySelector(".right-cover");
 		var bottomCover=document.querySelector(".bottom-cover");
+		var confirmBtn=document.querySelector(".confirm");
 
 		imgContainer.style.height=imgContainer.clientHeight-40+"px";
 		var canvasWidth=100;
@@ -203,6 +204,7 @@
 			height:canvasHeight,
 			x:(imgContainer.clientWidth/2)-(canvasWidth/2),
 			y:(imgContainer.clientHeight/2)-(canvasHeight/2),
+			type:"image/png"
 		}
 
 
@@ -223,6 +225,10 @@
 
 
 		uploadImgBtn.onclick=function(){
+			if(!window.atob||!Blob||!FileReader){
+				alert("换个高级点的浏览器吧,亲");
+				return false;
+			}
 			uploadFileImg.click();
 		}
 		uploadFileImg.onchange=function(e){
@@ -238,8 +244,9 @@
 				}
 				var img=new Image();
 				img.src=this.result;
-				if(imgContainer.querySelector("img")){
+				if(imgContainer.querySelector("canvas")){
 					imgContainer.innerHTML="";
+					// imgContainer.removeChild(imgContainer.querySelector("canvas"));
 				}
 				imgContainer.appendChild(img);
 				var canvas=document.createElement("canvas");
@@ -249,6 +256,54 @@
 				canvas.style.left=options.x+"px";
 				imgContainer.appendChild(canvas);
 			}
+		}
+		confirmBtn.onclick=function(){
+			var targetImg=imgContainer.querySelector("img");
+			if(!targetImg){
+				alert("请上传你的图片");
+				return false;
+			}
+			var targetCanvas=imgContainer.querySelector("canvas");
+			var left=targetImg.getBoundingClientRect().left;
+			var top=targetImg.getBoundingClientRect().top;
+			var canvasLeft=targetCanvas.getBoundingClientRect().left;
+			var canvasTop=targetCanvas.getBoundingClientRect().top;
+			var x=canvasTop-top;
+			var y=canvasLeft-left;
+			// var canvas2=document.createElement("canvas");
+			// 	canvas2.setAttribute("width",options.width);
+			// 	canvas2.setAttribute("height",options.height);
+				// canvas2.style.position="relative";    方便调试时的使用
+				// canvas2.style.zIndex="11111";
+			var canvas2=targetCanvas;
+			var ctx=canvas2.getContext('2d');
+			ctx.drawImage(targetImg,x,y,canvasWidth,canvasHeight,0,0,canvasWidth,canvasHeight);
+			// document.body.append(canvas2);
+			//先转为base64
+			var baseData=canvas2.toDataURL(options.type);//默认为png 
+			baseData=baseData.split(",")[1];
+			//再转为blob对象
+			baseData=window.atob(baseData);
+			var ia=new Uint8Array(baseData.length);
+			for(var i=0,len=ia.length;i<len;i++){
+				ia[i]=baseData.charCodeAt(i);
+			}
+			var blob=new Blob([ia],{type:options.type});
+
+			//转为FormData
+			var ajaxData=new FormData();
+			imgContainer.removeChild(targetImg);
+			ajaxData.append('file',blob);
+			$.ajax({
+				url:"controller.php",
+				type:"POST",
+				data:ajaxData,
+				contentType: false,    //不可缺
+				processData: false,    //不可缺
+				success:function(res){
+					console.log(res);
+				}
+			})
 		}
 	</script>
 
