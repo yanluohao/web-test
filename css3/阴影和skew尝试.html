@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+    <style>
+    .box{
+        position: relative;
+        width: 400px;
+        height: 150px;
+        background: #f2f2f2;
+    }
+    .box:after{
+        content: '';
+        position: absolute;
+        bottom: 8px;
+        right: 40px;
+        width: 200px;
+        height: 75px;
+        background-color: #bbb;
+        box-shadow: 0 0 10px 10px #bbb;
+        transform: skew(30deg,4deg);
+        z-index: -1;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+</body>
+
+</html>
