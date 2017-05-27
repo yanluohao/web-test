@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+    <style>
+    .path {
+        width: 200px;
+        height: 150px;
+        /* -webkit-clip-path: polygon(50% 0, 0 100%, 100% 100%); */
+        /* -webkit-clip-path: polygon(0 50%,50% 0,100% 50%,100% 100%,0 100%); */
+        /* -webkit-clip-path: circle(20px at 100px 100px); */
+        /* -webkit-clip-path: ellipse(30px 20px at 100px 100px); */
+        /* -webkit-clip-path: inset(50px 0% 0% 0% round 20% 0 20% 10%); */
+        /* 类似一个对话框的裁剪 */
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 50%, 70% 50%, 70% 70%, 60% 50%, 0 50%);
+    }
+    
+    .path2 {
+        width: 200px;
+        height: 150px;
+        clip-path: polygon(50% 0%, 63% 38%, 100% 38%, 69% 59%, 82% 100%, 50% 75%, 18% 100%, 31% 59%, 0 38%, 37% 38%);
+    }
+    
+    .box {
+        width: 200px;
+        height: 150px;
+        background-color: #f2f2f2;
+        -webkit-clip-path: polygon(50% 0, 0 100%, 100% 100%);
+    }
+    </style>
+</head>
+
+<body>
+    <img class="path" src="http://yunkus.com/wp-content/themes/zxx/images/T900-500.png" alt="">
+    <img class="path2" src="http://yunkus.com/wp-content/themes/zxx/images/T900-500.png" alt="">
+    <!-- 只是尝试一下对div是否有作用 -->
+    <div class="box"></div>
+</body>
+
+</html>
