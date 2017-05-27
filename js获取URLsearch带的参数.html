@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+    <script type="text/javascript">
+    function getParam() {
+        var str = window.location.search.substr(1);
+        if(!str)return false;
+        var paramObj = {};
+        var paramArr = str.split("&");
+        for (var i = 0, len = paramArr.length; i < len; i++) {
+            var tempArr = paramArr[i].split("=");
+            paramObj[tempArr[0]] = unescape(tempArr[1]);
+        }
+        return paramObj;
+    }
+    getParam();
+    //尝试使用正则表达式匹配
+    function regGetParam(param){
+        var reg=new RegExp("(^|&)"+param+"=([^&]*)(&|$)","i");
+        var str=window.location.search.substr(1).match(reg);
+        if(!str)return false;
+        return unescape(str[2]);
+    }
+    regGetParam("name");
+    regGetParam("key");
+    </script>
+</body>
+
+</html>
