@@ -7,22 +7,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>html5-dragDemo</title>
     <style>
-        *{
-            margin:0;
-            padding: 0;
-        }
-        #box{
-            border:1px dashed #ccc;
-            width: 500px;
-            height: 500px;
-        }
-        .drag{
-            width: 200px;
-            height:40px;
-            background:#ff6b00;
-            border:1px solid #ccc;
-            box-sizing: border-box;
-        }
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    
+    #box {
+        border: 1px dashed #ccc;
+        width: 500px;
+        height: 500px;
+    }
+    
+    .drag {
+        width: 200px;
+        height: 40px;
+        background: #ff6b00;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
     </style>
 </head>
 
@@ -35,42 +37,74 @@
             <li class="drag" id="drag4">4</li>
         </ul>
     </div>
-    <script>
+<!--     <script>
         'use strict'
-        var dragLi=Array.from(document.querySelectorAll(".drag")); //querySelector返回的类似数组的结构需要转换，不能直接使用forEach除了chrome以外的其他浏览器存在报错
-        var dragBox=document.getElementById("box");
-        var arr=[];
-        var itemTop=0;
+        var dragLi = Array.from(document.querySelectorAll(".drag")); //querySelector返回的类似数组的结构需要转换，不能直接使用forEach除了chrome以外的其他浏览器存在报错
+        var dragBox = document.getElementById("box");
+        var arr = [];
+        var itemTop = 0;
         arr.push(itemTop);
-        dragLi.forEach((item,index)=>{
-            item.setAttribute("draggable",true);
-            item.addEventListener("dragstart",function(e){
+        dragLi.forEach((item, index) => {
+            item.setAttribute("draggable", true);
+            item.addEventListener("dragstart", function(e) {
                 //下述中的setData方法的第一个参数为数据类型，样例中为Text类型
-                e.dataTransfer.setData("Text",e.target.id);
-                e.dataTransfer.effectAllowed="move";
+                e.dataTransfer.setData("Text", e.target.id);
+                e.dataTransfer.effectAllowed = "move";
                 console.log(e.dataTransfer.getData("Text"));
-            },false);
-            itemTop+=item.offsetHeight;
+            }, false);
+            itemTop += item.offsetHeight;
             arr.push(itemTop);
         })
 
         //必须要有dragover这个事件，否则drop事件无效
-        dragBox.addEventListener("dragover",(e)=>{
+        dragBox.addEventListener("dragover", (e) => {
             e.preventDefault();
         })
-        dragBox.addEventListener("drop",function(e){
+        dragBox.addEventListener("drop", function(e) {
             var temp;
-            for(let i=0,len=arr.length;i<len;i++){
-                if(e.clientY>arr[i]&&e.clientY<arr[i+1]){
-                    temp=i;
+            for (let i = 0, len = arr.length; i < len; i++) {
+                if (e.clientY > arr[i] && e.clientY < arr[i + 1]) {
+                    temp = i;
                     break;
                 }
             }
-            var nextElement=dragBox.querySelectorAll("ul li")[temp];
-            var data=e.dataTransfer.getData("Text");
-            var dataElement=document.getElementById(data);
-            dragBox.querySelector("ul").insertBefore(dataElement,nextElement);
-        },false)
+            var nextElement = dragBox.querySelectorAll("ul li")[temp];
+            var data = e.dataTransfer.getData("Text");
+            var dataElement = document.getElementById(data);
+            dragBox.querySelector("ul").insertBefore(dataElement, nextElement);
+        }, false)
+    </script> -->
+    <!-- 这是拖拽上传的一部分，缩略图功能在其他demo中存在，有空闲了再做整合好了 -->
+    <script type="text/javascript">
+    var dragContainer = document.querySelector("#box");
+    dragContainer.addEventListener("dragenter", function(e) {
+        e.preventDefault();
+        console.log("enter");
+    }, false)
+    dragContainer.addEventListener("dragover",function(e){
+        e.preventDefault();
+    })
+    dragContainer.addEventListener("drop",function(e){
+        e.preventDefault();  //阻止drop的默认事件发生
+        e.stopPropagation();
+        var files=Array.from(e.dataTransfer.files);
+        var formData=new FormData();
+        files.forEach(function(item,index){
+            if(!/^image*/.test(item.type)){
+                return;
+            }
+            formData.append("file[]",item);
+        })
+        var xhr=new XMLHttpRequest();
+        var url;//假装有url
+        xhr.open("POST",url);
+        xhr.onload=function(){
+            if(this.status==200&&this.readyState==4){
+                console.log(xhr.responseText);
+            }
+        }
+        xhr.send(formData);
+    })
     </script>
 </body>
 
